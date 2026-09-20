@@ -60,7 +60,7 @@ export default function WinningsPage() {
       </div>
 
       <Card className="p-6">
-        <h3 className="text-[14px] font-semibold tracking-[-0.01em] text-[#111113]">Your wins</h3>
+        <h3 className="text-[14px] font-semibold tracking-[-0.01em] text-[#111113]">Your wins — reward timeline</h3>
         {winners.length === 0 ? (
           <div className="mt-4 rounded-xl border border-dashed border-[rgba(17,17,19,0.10)] py-10 text-center">
             <p className="text-sm font-medium text-[#111113]">No winnings yet</p>
@@ -72,7 +72,7 @@ export default function WinningsPage() {
               <div key={w.id} className="rounded-xl border border-[rgba(17,17,19,0.10)] bg-white p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="text-sm font-semibold text-[#111113]">
-                    {w.match_count} match • £{w.prize_amount.toLocaleString()}
+                    DRAW #{w.id.slice(-2).toUpperCase()} • {w.match_count} MATCH • £{w.prize_amount.toLocaleString()}
                   </p>
                   <div className="flex gap-2">
                     <Badge variant={w.verification_status === "verified" ? "success" : w.verification_status === "rejected" ? "warning" : "outline"}>{w.verification_status}</Badge>
@@ -80,6 +80,14 @@ export default function WinningsPage() {
                   </div>
                 </div>
                 <p className="text-xs text-[#5F5F5A] mt-1">{new Date(w.draw_date).toLocaleDateString()}</p>
+                {/* timeline */}
+                <div className="mt-4 flex items-center gap-2 text-[11px]">
+                  <span className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 border ${w.verification_status !== "pending" ? "bg-[#C8FF3D] border-[#C8FF3D] text-[#0B0B0C]" : "bg-[rgba(17,17,19,0.06)] border-[rgba(17,17,19,0.10)] text-[#5F5F5A]"}`}>● SUBMITTED</span>
+                  <span className="h-px w-6 bg-[rgba(17,17,19,0.10)]" />
+                  <span className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 border ${w.verification_status === "verified" ? "bg-[#C8FF3D] border-[#C8FF3D] text-[#0B0B0C]" : w.verification_status === "pending" ? "bg-[#FF8A5B]/15 border-[#FF8A5B]/30 text-[#8A4A2B]" : "bg-[rgba(17,17,19,0.06)]"}`}>{w.verification_status === "verified" ? "✓" : "○"} VERIFIED</span>
+                  <span className="h-px w-6 bg-[rgba(17,17,19,0.10)]" />
+                  <span className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 border ${w.payment_status === "paid" ? "bg-[#C8FF3D] border-[#C8FF3D] text-[#0B0B0C]" : "bg-[rgba(17,17,19,0.06)] border-[rgba(17,17,19,0.10)] text-[#5F5F5A]"}`}>{w.payment_status === "paid" ? "✓" : "○"} PAID</span>
+                </div>
               </div>
             ))}
           </div>
