@@ -11,24 +11,24 @@ export function ImpactOrbit({ className = "" }: { className?: string }) {
           </radialGradient>
         </defs>
         <circle cx="180" cy="180" r="120" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
-        <circle cx="180" cy="180" r="80" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="4 6" />
+        <circle cx="180" cy="180" r="80" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="4 6" className="orbit-path" />
         <circle cx="180" cy="180" r="160" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-        <circle cx="180" cy="180" r="120" fill="url(#orbitGrad)" />
-        <path d="M 80 140 Q 180 80 280 140" stroke="#C8FF3D" strokeWidth="1" strokeOpacity="0.5" fill="none" />
+        <circle cx="180" cy="180" r="120" fill="url(#orbitGrad)" className="hero-glow" />
+        <path d="M 80 140 Q 180 80 280 140" stroke="#C8FF3D" strokeWidth="1" strokeOpacity="0.5" fill="none" className="orbit-path" />
         <path d="M 80 220 Q 180 280 280 220" stroke="rgba(255,255,255,0.12)" strokeWidth="1" fill="none" />
-        <g>
-          <circle cx="80" cy="180" r="18" fill="#C8FF3D" />
+        <g className="node-in node-in-1">
+          <circle cx="80" cy="180" r="18" fill="#C8FF3D" className="signal-core" />
           <circle cx="80" cy="180" r="4" fill="#0B0B0C" />
           <text x="80" y="215" textAnchor="middle" fill="white" fontSize="8" fontWeight="700" letterSpacing="0.08em">PLAY</text>
         </g>
-        <g>
+        <g className="node-in node-in-2">
           <circle cx="180" cy="120" r="14" fill="#191B1F" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
-          <circle cx="180" cy="120" r="4" fill="#C8FF3D" />
+          <circle cx="180" cy="120" r="4" fill="#C8FF3D" className="signal-core" />
           <text x="180" y="100" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="7" letterSpacing="0.12em">WIN</text>
         </g>
-        <g>
+        <g className="node-in node-in-3">
           <circle cx="280" cy="180" r="18" fill="#0B0B0C" stroke="#C8FF3D" strokeWidth="1.5" />
-          <circle cx="280" cy="180" r="5" fill="#C8FF3D" />
+          <circle cx="280" cy="180" r="5" fill="#C8FF3D" className="signal-core" />
           <text x="280" y="215" textAnchor="middle" fill="white" fontSize="8" fontWeight="700" letterSpacing="0.08em">IMPACT</text>
         </g>
         <circle cx="120" cy="100" r="1" fill="#61E7FF" opacity="0.6" />
