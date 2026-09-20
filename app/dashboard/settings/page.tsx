@@ -79,7 +79,7 @@ export default function SettingsPage() {
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" value={email} disabled className="bg-[#F7F7F3] text-[#6B6B78]" />
+            <Input id="email" value={email} disabled className="bg-[#F4F4F1] text-[#6B6B78]" />
           </div>
           <Button onClick={saveProfile} className="h-10">Save profile</Button>
         </div>
@@ -95,7 +95,7 @@ export default function SettingsPage() {
           <button
             onClick={() => handleSubscribe("monthly")}
             aria-pressed={plan === "monthly"}
-            className={`rounded-2xl border p-4 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111113] ${plan === "monthly" ? "border-[#111113] bg-[#111113] text-white" : "border-[#E8E8E3] bg-white hover:border-[#D1D1CC]"}`}
+            className={`rounded-2xl border p-4 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111113] ${plan === "monthly" ? "border-[#111113] bg-[#0B0B0C] text-white" : "border-[rgba(17,17,19,0.10)] bg-white hover:border-[#D1D1CC]"}`}
           >
             <p className={`text-sm font-semibold ${plan === "monthly" ? "text-white" : "text-[#111113]"}`}>Monthly</p>
             <p className={`text-sm mt-1 ${plan === "monthly" ? "text-white/60" : "text-[#6B6B78]"}`}>£20/mo</p>
@@ -103,13 +103,13 @@ export default function SettingsPage() {
           <button
             onClick={() => handleSubscribe("yearly")}
             aria-pressed={plan === "yearly"}
-            className={`rounded-2xl border p-4 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111113] ${plan === "yearly" ? "border-[#111113] bg-[#111113] text-white" : "border-[#E8E8E3] bg-white hover:border-[#D1D1CC]"}`}
+            className={`rounded-2xl border p-4 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111113] ${plan === "yearly" ? "border-[#111113] bg-[#0B0B0C] text-white" : "border-[rgba(17,17,19,0.10)] bg-white hover:border-[#D1D1CC]"}`}
           >
             <p className={`text-sm font-semibold ${plan === "yearly" ? "text-white" : "text-[#111113]"}`}>Yearly</p>
             <p className={`text-sm mt-1 ${plan === "yearly" ? "text-white/60" : "text-[#6B6B78]"}`}>£200/yr • Save 17%</p>
           </button>
         </div>
-        <p className="text-xs leading-5 text-[#8D8D98] mt-3">Stripe test mode: use <span className="font-mono text-[#111113]">4242 4242 4242 4242</span>. Graceful demo if env missing.</p>
+        <p className="text-xs leading-5 text-[#5F5F5A] mt-3">Stripe test mode: use <span className="font-mono text-[#111113]">4242 4242 4242 4242</span>. Graceful demo if env missing.</p>
       </Card>
     </div>
   );

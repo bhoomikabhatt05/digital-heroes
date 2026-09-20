@@ -39,19 +39,19 @@ export default async function DrawsPage() {
                   </p>
                   <p className="mt-1 text-[13.5px] text-[#6B6B78]">
                     {d.draw_type} • Prize <span className="font-medium text-[#111113]">£{d.prize_pool?.toLocaleString()}</span>
-                    {d.jackpot_rollover ? <span className="text-[#8D8D98]"> + £{d.jackpot_rollover.toLocaleString()} rollover</span> : ""}
+                    {d.jackpot_rollover ? <span className="text-[#5F5F5A]"> + £{d.jackpot_rollover.toLocaleString()} rollover</span> : ""}
                   </p>
                 </div>
                 <Badge variant="lime" className="text-xs">{d.winning_numbers ? d.winning_numbers.join(" • ") : "Awaiting numbers"}</Badge>
               </div>
               <div className="mt-5 flex gap-2">
                 {(entry?.numbers ?? [7, 14, 23, 31, 42]).map((n: number) => (
-                  <span key={n} className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111113] text-white text-sm font-bold">
+                  <span key={n} className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#0B0B0C] text-white text-sm font-bold">
                     {n}
                   </span>
                 ))}
               </div>
-              <p className="text-xs leading-5 text-[#8D8D98] mt-3">
+              <p className="text-xs leading-5 text-[#5F5F5A] mt-3">
                 Your entry: {entry ? entry.numbers.join(", ") : "Auto-generated for active subscribers"} • Winners split tiers equally. Jackpot rolls over if no 5-match.
               </p>
             </Card>

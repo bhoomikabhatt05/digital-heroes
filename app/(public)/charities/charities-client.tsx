@@ -25,14 +25,14 @@ export default function CharitiesClient({ charities }: { charities: any[] }) {
           <button
             onClick={() => setFilter("all")}
             aria-pressed={filter === "all"}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111113] ${filter === "all" ? "bg-[#111113] text-white" : "border border-[#E8E8E3] bg-white text-[#111113] hover:bg-[#F7F7F3]"}`}
+            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111113] ${filter === "all" ? "bg-[#0B0B0C] text-white" : "border border-[rgba(17,17,19,0.10)] bg-white text-[#111113] hover:bg-[#F4F4F1]"}`}
           >
             All
           </button>
           <button
             onClick={() => setFilter("featured")}
             aria-pressed={filter === "featured"}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111113] ${filter === "featured" ? "bg-[#D9FF82] text-[#111113] border border-[#D9FF82]" : "border border-[#E8E8E3] bg-white text-[#111113] hover:bg-[#F7F7F3]"}`}
+            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#111113] ${filter === "featured" ? "bg-[#C8FF3D] text-[#111113] border border-[#C8FF3D]" : "border border-[rgba(17,17,19,0.10)] bg-white text-[#111113] hover:bg-[#F4F4F1]"}`}
           >
             Featured
           </button>
@@ -43,9 +43,9 @@ export default function CharitiesClient({ charities }: { charities: any[] }) {
         {filtered.map((c) => (
           <div
             key={c.id}
-            className="group flex flex-col overflow-hidden rounded-2xl border border-[#E8E8E3] bg-white hover:border-[#D1D1CC] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-200"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-[rgba(17,17,19,0.10)] bg-white hover:border-[#D1D1CC] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-all duration-200"
           >
-            <div className="h-44 overflow-hidden bg-[#F7F7F3]">
+            <div className="h-44 overflow-hidden bg-[#F4F4F1]">
               <SafeImage
                 src={c.image_url}
                 alt={c.name}
@@ -72,9 +72,9 @@ export default function CharitiesClient({ charities }: { charities: any[] }) {
       </div>
 
       {filtered.length === 0 && (
-        <div className="mt-10 rounded-2xl border border-dashed border-[#E8E8E3] py-12 text-center">
+        <div className="mt-10 rounded-2xl border border-dashed border-[rgba(17,17,19,0.10)] py-12 text-center">
           <p className="text-sm font-medium text-[#111113]">No charities found</p>
-          <p className="mt-1 text-sm text-[#8D8D98]">Try a different search or filter.</p>
+          <p className="mt-1 text-sm text-[#5F5F5A]">Try a different search or filter.</p>
         </div>
       )}
     </>

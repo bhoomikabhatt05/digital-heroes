@@ -22,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
   return (
     <div className="min-h-screen flex">
-      <aside className="w-[220px] border-r border-white/10 bg-[#111113] text-white p-6 hidden md:flex md:flex-col">
+      <aside className="w-[220px] border-r border-white/10 bg-[#0B0B0C] text-white p-6 hidden md:flex md:flex-col">
         <Link href="/admin" className="flex items-center gap-2.5">
           <div className="h-7 w-7 rounded-lg bg-white text-[#111113] flex items-center justify-center text-xs font-bold">DH</div>
           <span className="font-semibold tracking-[-0.02em] text-sm">Admin</span>
@@ -40,14 +40,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </Link>
       </aside>
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="md:hidden border-b border-[#E8E8E3] bg-white px-6 py-3 flex gap-2 overflow-x-auto text-sm dark:border-white/10 dark:bg-[#111113]">
+        <header className="md:hidden border-b border-[rgba(17,17,19,0.10)] bg-white px-6 py-3 flex gap-2 overflow-x-auto text-sm dark:border-white/10 dark:bg-[#0B0B0C]">
           {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="whitespace-nowrap rounded-full border border-[#E8E8E3] px-3 py-1.5 text-[#111113] dark:border-white/15 dark:text-white">
+            <Link key={n.href} href={n.href} className="whitespace-nowrap rounded-full border border-[rgba(17,17,19,0.10)] px-3 py-1.5 text-[#111113] dark:border-white/15 dark:text-white">
               {n.label}
             </Link>
           ))}
         </header>
-        <main className="p-6 md:p-8 flex-1 bg-[#F7F7F3] dark:bg-[#0A0A0B]">{children}</main>
+        <main className="p-6 md:p-8 flex-1 bg-[#F4F4F1] dark:bg-[#0A0A0B]">{children}</main>
       </div>
     </div>
   );

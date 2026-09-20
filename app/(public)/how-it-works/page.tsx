@@ -8,7 +8,7 @@ export default function HowItWorks() {
       <Navbar />
       <div className="mx-auto w-full max-w-[1160px] px-6 py-12 md:py-16">
         <div className="max-w-[760px]">
-          <p className="text-xs font-semibold tracking-[0.14em] uppercase text-[#8D8D98]">PLAY → WIN → GIVE BACK</p>
+          <p className="text-xs font-semibold tracking-[0.14em] uppercase text-[#5F5F5A]">PLAY → WIN → GIVE BACK</p>
           <h1 className="mt-3 text-[34px] md:text-[42px] font-bold tracking-[-0.03em] leading-[1.05] text-[#111113]">How it works</h1>
           <p className="mt-4 text-[16px] leading-7 text-[#6B6B78] max-w-[560px]">
             Digital Heroes merges performance tracking with a monthly prize draw — and every subscription funds charity. Editorial, minimal, transparent.
@@ -23,8 +23,8 @@ export default function HowItWorks() {
           ].map((s) => (
             <Card key={s.n} className="p-6">
               <div className="flex items-center justify-between">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#111113] text-white text-xs font-bold">{s.n}</span>
-                <span className="text-xs font-medium tracking-wide text-[#8D8D98]">{s.meta}</span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0B0B0C] text-white text-xs font-bold">{s.n}</span>
+                <span className="text-xs font-medium tracking-wide text-[#5F5F5A]">{s.meta}</span>
               </div>
               <h3 className="mt-5 text-[15px] font-semibold tracking-[-0.01em] text-[#111113]">{s.title}</h3>
               <p className="mt-2 text-[13.5px] leading-6 text-[#6B6B78]">{s.desc}</p>
@@ -38,20 +38,20 @@ export default function HowItWorks() {
             <Badge variant="outline">50% of subscription revenue → prize pool</Badge>
           </div>
           <div className="mt-6 grid grid-cols-3 gap-3 md:gap-4">
-            <div className="rounded-2xl bg-[#111113] text-white p-5 text-center">
+            <div className="rounded-2xl bg-[#0B0B0C] text-white p-5 text-center">
               <p className="text-[28px] font-bold tracking-[-0.02em] leading-none text-white">40%</p>
               <p className="mt-1.5 text-xs font-medium tracking-wide uppercase text-white/60">5 match • Jackpot</p>
             </div>
-            <div className="rounded-2xl bg-[#F7F7F3] border border-[#E8E8E3] p-5 text-center">
+            <div className="rounded-2xl bg-[#F4F4F1] border border-[rgba(17,17,19,0.10)] p-5 text-center">
               <p className="text-[28px] font-bold tracking-[-0.02em] leading-none text-[#111113]">35%</p>
-              <p className="mt-1.5 text-xs font-medium tracking-wide uppercase text-[#8D8D98]">4 match</p>
+              <p className="mt-1.5 text-xs font-medium tracking-wide uppercase text-[#5F5F5A]">4 match</p>
             </div>
-            <div className="rounded-2xl bg-[#F7F7F3] border border-[#E8E8E3] p-5 text-center">
+            <div className="rounded-2xl bg-[#F4F4F1] border border-[rgba(17,17,19,0.10)] p-5 text-center">
               <p className="text-[28px] font-bold tracking-[-0.02em] leading-none text-[#111113]">25%</p>
-              <p className="mt-1.5 text-xs font-medium tracking-wide uppercase text-[#8D8D98]">3 match</p>
+              <p className="mt-1.5 text-xs font-medium tracking-wide uppercase text-[#5F5F5A]">3 match</p>
             </div>
           </div>
-          <p className="mt-4 text-xs leading-5 text-[#8D8D98]">
+          <p className="mt-4 text-xs leading-5 text-[#5F5F5A]">
             Multiple winners in a tier split the tier equally. 5-match jackpot rolls over if unclaimed.
           </p>
         </Card>

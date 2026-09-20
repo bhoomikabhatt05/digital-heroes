@@ -46,15 +46,15 @@ export default function WinningsPage() {
 
       <div className="grid md:grid-cols-3 gap-4">
         <Card className="p-5">
-          <p className="text-xs font-semibold tracking-[0.12em] uppercase text-[#8D8D98]">Total won</p>
+          <p className="text-xs font-semibold tracking-[0.12em] uppercase text-[#5F5F5A]">Total won</p>
           <p className="mt-2 text-[24px] font-bold tracking-[-0.02em] text-[#111113]">£{total.toLocaleString()}</p>
         </Card>
         <Card className="p-5">
-          <p className="text-xs font-semibold tracking-[0.12em] uppercase text-[#8D8D98]">Pending verification</p>
+          <p className="text-xs font-semibold tracking-[0.12em] uppercase text-[#5F5F5A]">Pending verification</p>
           <p className="mt-2 text-[24px] font-bold tracking-[-0.02em] text-[#111113]">{winners.filter((w) => w.verification_status === "pending").length}</p>
         </Card>
         <Card className="p-5">
-          <p className="text-xs font-semibold tracking-[0.12em] uppercase text-[#8D8D98]">Paid</p>
+          <p className="text-xs font-semibold tracking-[0.12em] uppercase text-[#5F5F5A]">Paid</p>
           <p className="mt-2 text-[24px] font-bold tracking-[-0.02em] text-[#111113]">£0</p>
         </Card>
       </div>
@@ -62,14 +62,14 @@ export default function WinningsPage() {
       <Card className="p-6">
         <h3 className="text-[14px] font-semibold tracking-[-0.01em] text-[#111113]">Your wins</h3>
         {winners.length === 0 ? (
-          <div className="mt-4 rounded-xl border border-dashed border-[#E8E8E3] py-10 text-center">
+          <div className="mt-4 rounded-xl border border-dashed border-[rgba(17,17,19,0.10)] py-10 text-center">
             <p className="text-sm font-medium text-[#111113]">No winnings yet</p>
-            <p className="text-sm text-[#8D8D98] mt-1">Good luck next draw!</p>
+            <p className="text-sm text-[#5F5F5A] mt-1">Good luck next draw!</p>
           </div>
         ) : (
           <div className="mt-4 space-y-3">
             {winners.map((w) => (
-              <div key={w.id} className="rounded-xl border border-[#E8E8E3] bg-white p-4">
+              <div key={w.id} className="rounded-xl border border-[rgba(17,17,19,0.10)] bg-white p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="text-sm font-semibold text-[#111113]">
                     {w.match_count} match • £{w.prize_amount.toLocaleString()}
@@ -79,7 +79,7 @@ export default function WinningsPage() {
                     <Badge variant={w.payment_status === "paid" ? "success" : "outline"}>{w.payment_status}</Badge>
                   </div>
                 </div>
-                <p className="text-xs text-[#8D8D98] mt-1">{new Date(w.draw_date).toLocaleDateString()}</p>
+                <p className="text-xs text-[#5F5F5A] mt-1">{new Date(w.draw_date).toLocaleDateString()}</p>
               </div>
             ))}
           </div>
@@ -96,7 +96,7 @@ export default function WinningsPage() {
             {uploading ? "Uploading..." : "Upload proof"}
           </Button>
         </div>
-        <p className="text-xs leading-5 text-[#8D8D98] mt-2">Stored in Supabase Storage (bucket: <span className="font-mono text-[#111113]">winner-proofs</span>). Admin will verify/reject.</p>
+        <p className="text-xs leading-5 text-[#5F5F5A] mt-2">Stored in Supabase Storage (bucket: <span className="font-mono text-[#111113]">winner-proofs</span>). Admin will verify/reject.</p>
       </Card>
     </div>
   );

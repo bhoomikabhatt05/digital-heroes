@@ -26,8 +26,8 @@ export default async function CharityDetail({ params }: { params: Promise<{ slug
         <Link href="/charities" className="inline-flex text-[13.5px] font-medium text-[#6B6B78] hover:text-[#111113]">
           <span aria-hidden className="mr-1">←</span> Back to charities
         </Link>
-        <div className="mt-6 overflow-hidden rounded-3xl border border-[#E8E8E3] bg-white">
-          <div className="h-[320px] md:h-[420px] overflow-hidden bg-[#F7F7F3]">
+        <div className="mt-6 overflow-hidden rounded-3xl border border-[rgba(17,17,19,0.10)] bg-white">
+          <div className="h-[320px] md:h-[420px] overflow-hidden bg-[#F4F4F1]">
             <SafeImage src={charity.image_url} alt={charity.name} className="h-full w-full object-cover" fallbackClassName="h-[320px] md:h-[420px] w-full" />
           </div>
         </div>

@@ -24,7 +24,7 @@ export default function Pricing() {
 
         <div className="mt-10 grid md:grid-cols-2 gap-5 max-w-[760px] mx-auto">
           <Card className="p-6 md:p-7 flex flex-col">
-            <p className="text-xs font-semibold tracking-[0.14em] uppercase text-[#8D8D98]">Monthly</p>
+            <p className="text-xs font-semibold tracking-[0.14em] uppercase text-[#5F5F5A]">Monthly</p>
             <p className="mt-3 text-[32px] font-bold tracking-[-0.03em] leading-none text-[#111113]">
               £20<span className="text-[14px] font-normal text-[#6B6B78]">/month</span>
             </p>
@@ -45,11 +45,11 @@ export default function Pricing() {
             <div className="absolute -top-3 left-6">
               <Badge variant="lime" className="shadow-sm">Most popular — Save 17%</Badge>
             </div>
-            <p className="mt-4 text-xs font-semibold tracking-[0.14em] uppercase text-[#8D8D98]">Yearly</p>
+            <p className="mt-4 text-xs font-semibold tracking-[0.14em] uppercase text-[#5F5F5A]">Yearly</p>
             <p className="mt-3 text-[32px] font-bold tracking-[-0.03em] leading-none text-[#111113]">
               £200<span className="text-[14px] font-normal text-[#6B6B78]">/year</span>
             </p>
-            <p className="text-xs font-medium text-[#8D8D98] mt-1">£16.67/mo billed annually</p>
+            <p className="text-xs font-medium text-[#5F5F5A] mt-1">£16.67/mo billed annually</p>
             <ul className="mt-6 space-y-2.5 text-[13.5px] leading-6">
               {features.map((f) => (
                 <li key={f} className="flex gap-2.5 text-[#3A3A40]">

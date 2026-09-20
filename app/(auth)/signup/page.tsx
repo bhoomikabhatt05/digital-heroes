@@ -3,9 +3,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
-import { Input, Label } from "@/components/ui/input";
+import { DarkInput, DarkLabel } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { DarkCard } from "@/components/ui/card";
 import { useToast } from "@/components/ui/toast";
 
 export default function SignupPage() {
@@ -47,36 +47,36 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-[#F7F7F3] dark:bg-[#0A0A0B]">
-      <Card className="w-full max-w-[440px] p-7 md:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+    <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-[#0B0B0C]">
+      <DarkCard className="w-full max-w-[440px] p-7 md:p-8 border-white/10 bg-[#171719]">
         <div className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-lg bg-[#111113] flex items-center justify-center text-white text-xs font-bold">DH</div>
-          <span className="text-sm font-semibold tracking-[-0.02em] text-[#111113]">Digital Heroes</span>
+          <div className="h-8 w-8 rounded-[10px] bg-white text-[#0B0B0C] flex items-center justify-center text-xs font-bold">DH</div>
+          <span className="text-sm font-semibold tracking-[-0.02em] text-white">Digital Heroes</span>
         </div>
-        <h1 className="mt-6 text-[22px] font-bold tracking-[-0.02em] text-[#111113]">Join Digital Heroes</h1>
-        <p className="mt-1.5 text-[13.5px] leading-6 text-[#6B6B78]">Play. Win. Give back. Start in 30 seconds.</p>
+        <h1 className="mt-6 text-[22px] font-bold tracking-[-0.02em] text-[#F5F5F2]">Join Digital Heroes</h1>
+        <p className="mt-1.5 text-[13.5px] leading-6 text-[#A5A5A0]">Play. Win. Give back. Start in 30 seconds.</p>
         <form onSubmit={handleSubmit} className="mt-7 space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="fullName">Full name</Label>
-            <Input id="fullName" required value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Alex Morgan" autoComplete="name" />
+            <DarkLabel htmlFor="fullName">Full name</DarkLabel>
+            <DarkInput id="fullName" required value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Alex Morgan" autoComplete="name" />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" />
+            <DarkLabel htmlFor="email">Email</DarkLabel>
+            <DarkInput id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" autoComplete="new-password" />
-            <p className="text-xs text-[#8D8D98]">At least 6 characters</p>
+            <DarkLabel htmlFor="password">Password</DarkLabel>
+            <DarkInput id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" autoComplete="new-password" />
+            <p className="text-xs text-[#74746F]">At least 6 characters</p>
           </div>
           <Button type="submit" disabled={loading} className="w-full h-11 mt-2">
             {loading ? "Creating..." : "Create account"}
           </Button>
         </form>
-        <p className="text-[13.5px] text-center mt-6 text-[#6B6B78]">
-          Already have an account? <Link href="/login" className="font-medium text-[#111113] hover:text-[#6B6B78] underline underline-offset-4">Log in</Link>
+        <p className="text-[13.5px] text-center mt-6 text-[#A5A5A0]">
+          Already have an account? <Link href="/login" className="font-medium text-white hover:text-[#C8FF3D] underline underline-offset-4">Log in</Link>
         </p>
-      </Card>
+      </DarkCard>
     </div>
   );
 }

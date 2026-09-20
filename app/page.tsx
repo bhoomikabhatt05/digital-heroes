@@ -18,7 +18,7 @@ export default function HomePage() {
             <Badge variant="lime" className="mb-5">Monthly draw • £89k prize pool • Next draw in 12 days</Badge>
             <h1 className="text-[48px] md:text-[68px] font-bold tracking-[-0.04em] leading-[0.88] text-[#111113]">
               PLAY<br />FOR<br />
-              <span className="text-[#8D8D98] font-bold">MORE.</span>
+              <span className="text-[#5F5F5A] font-bold">MORE.</span>
             </h1>
             <p className="mt-6 text-[17px] leading-7 text-[#6B6B78] max-w-[440px]">
               Track your game. Enter the monthly draw. Turn every subscription into something bigger.
@@ -35,18 +35,18 @@ export default function HomePage() {
                 </Button>
               </Link>
             </div>
-            <div className="mt-10 flex flex-wrap gap-8 md:gap-10 border-t border-[#E8E8E3] pt-6">
+            <div className="mt-10 flex flex-wrap gap-8 md:gap-10 border-t border-[rgba(17,17,19,0.10)] pt-6">
               <div>
                 <p className="text-[22px] font-bold tracking-[-0.02em] text-[#111113]">{mockStats.activeSubscribers.toLocaleString()}</p>
-                <p className="text-[12px] font-medium tracking-wide uppercase text-[#8D8D98] mt-1">Active heroes</p>
+                <p className="text-[12px] font-medium tracking-wide uppercase text-[#5F5F5A] mt-1">Active heroes</p>
               </div>
               <div>
                 <p className="text-[22px] font-bold tracking-[-0.02em] text-[#111113]">£{mockStats.charityTotal.toLocaleString()}</p>
-                <p className="text-[12px] font-medium tracking-wide uppercase text-[#8D8D98] mt-1">To charity</p>
+                <p className="text-[12px] font-medium tracking-wide uppercase text-[#5F5F5A] mt-1">To charity</p>
               </div>
               <div>
                 <p className="text-[22px] font-bold tracking-[-0.02em] text-[#111113]">£{mockStats.prizePool.toLocaleString()}</p>
-                <p className="text-[12px] font-medium tracking-wide uppercase text-[#8D8D98] mt-1">Prize pool</p>
+                <p className="text-[12px] font-medium tracking-wide uppercase text-[#5F5F5A] mt-1">Prize pool</p>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function HomePage() {
           {/* Hero draw card */}
           <div className="relative">
             <DarkCard className="p-7 md:p-8 overflow-hidden relative">
-              <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#D9FF82]/20 blur-3xl pointer-events-none" aria-hidden />
+              <div className="absolute -right-12 -top-12 h-64 w-64 rounded-full bg-[#C8FF3D]/20 blur-3xl pointer-events-none" aria-hidden />
               <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-white/60">Current draw</p>
               <p className="mt-2 text-[34px] font-bold tracking-[-0.03em] leading-none text-white">£{mockStats.prizePool.toLocaleString()}</p>
               <p className="mt-1.5 text-[13px] leading-5 text-white/60">Prize pool • 5 numbers • 3 tiers</p>
@@ -82,10 +82,10 @@ export default function HomePage() {
             </DarkCard>
 
             <Card className="mt-4 flex items-center gap-4 p-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#D9FF82] text-[#111113] text-sm">🏆</div>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C8FF3D] text-[#111113] text-sm">🏆</div>
               <div className="min-w-0">
                 <p className="text-[13.5px] font-semibold tracking-[-0.01em] text-[#111113]">Last month: 3 winners shared £31k</p>
-                <p className="text-xs text-[#8D8D98] mt-0.5">Verified • Paid within 48h</p>
+                <p className="text-xs text-[#5F5F5A] mt-0.5">Verified • Paid within 48h</p>
               </div>
               <span className="ml-auto hidden md:inline-flex text-xs font-medium text-[#6B6B78] shrink-0">View →</span>
             </Card>
@@ -94,7 +94,7 @@ export default function HomePage() {
       </section>
 
       {/* PLAY → WIN → GIVE BACK */}
-      <section className="bg-[#111113] text-white py-14 md:py-16">
+      <section className="bg-[#0B0B0C] text-white py-14 md:py-16">
         <div className="mx-auto max-w-[1160px] px-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-[26px] md:text-[30px] font-bold tracking-[-0.03em] text-white">PLAY → WIN → GIVE BACK</h2>
@@ -111,7 +111,7 @@ export default function HomePage() {
             ].map((s) => (
               <div key={s.step} className="group rounded-2xl border border-white/10 bg-white/[0.04] p-6 hover:bg-white/[0.07] hover:border-white/15 transition-colors">
                 <div className="flex items-center justify-between">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#D9FF82] text-[#111113] text-xs font-bold">{s.icon}</span>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C8FF3D] text-[#111113] text-xs font-bold">{s.icon}</span>
                   <span className="text-xs font-medium tracking-widest text-white/35">{s.step}</span>
                 </div>
                 <h3 className="mt-5 text-[15px] font-semibold tracking-[-0.01em] text-white">{s.title}</h3>
@@ -132,10 +132,10 @@ export default function HomePage() {
             { label: "Charity funded", value: "£142k" },
           ].map((s) => (
             <Card key={s.label} className="flex items-center gap-4 p-5">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#111113] text-white text-[10px]">●</div>
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#0B0B0C] text-white text-[10px]">●</div>
               <div className="min-w-0">
                 <p className="text-[16px] font-bold tracking-[-0.02em] text-[#111113]">{s.value}</p>
-                <p className="text-[11px] font-medium tracking-wide uppercase text-[#8D8D98] mt-0.5 truncate">{s.label}</p>
+                <p className="text-[11px] font-medium tracking-wide uppercase text-[#5F5F5A] mt-0.5 truncate">{s.label}</p>
               </div>
             </Card>
           ))}
@@ -158,9 +158,9 @@ export default function HomePage() {
             .map((c) => (
               <div
                 key={c.id}
-                className="group overflow-hidden rounded-2xl border border-[#E8E8E3] bg-white hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:border-[#D1D1CC] transition-all duration-200"
+                className="group overflow-hidden rounded-2xl border border-[rgba(17,17,19,0.10)] bg-white hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:border-[#D1D1CC] transition-all duration-200"
               >
-                <div className="h-44 overflow-hidden bg-[#F7F7F3]">
+                <div className="h-44 overflow-hidden bg-[#F4F4F1]">
                   <SafeImage
                     src={c.image_url}
                     alt={c.name}
@@ -182,7 +182,7 @@ export default function HomePage() {
       </section>
 
       {/* Pricing teaser */}
-      <section className="bg-[#D9FF82] py-12 md:py-14">
+      <section className="bg-[#C8FF3D] py-12 md:py-14">
         <div className="mx-auto max-w-[1160px] px-6 grid md:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-[28px] md:text-[30px] font-bold tracking-[-0.03em] leading-[1.05] text-[#111113]">
@@ -196,7 +196,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <Card className="p-5">
-              <p className="text-[12px] font-semibold tracking-widest uppercase text-[#8D8D98]">Monthly</p>
+              <p className="text-[12px] font-semibold tracking-widest uppercase text-[#5F5F5A]">Monthly</p>
               <p className="mt-2 text-[26px] font-bold tracking-[-0.02em] text-[#111113]">
                 £20<span className="text-[13px] font-normal text-[#6B6B78]">/mo</span>
               </p>
@@ -206,7 +206,7 @@ export default function HomePage() {
             </Card>
             <Card className="p-5 border-[#111113] shadow-[0_4px_16px_rgba(0,0,0,0.08)]">
               <Badge variant="lime" className="text-[11px]">Save 17%</Badge>
-              <p className="mt-3 text-[12px] font-semibold tracking-widest uppercase text-[#8D8D98]">Yearly</p>
+              <p className="mt-3 text-[12px] font-semibold tracking-widest uppercase text-[#5F5F5A]">Yearly</p>
               <p className="text-[26px] font-bold tracking-[-0.02em] text-[#111113]">
                 £200<span className="text-[13px] font-normal text-[#6B6B78]">/yr</span>
               </p>

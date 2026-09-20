@@ -41,7 +41,7 @@ export default function AdminCharities() {
       <div className="grid md:grid-cols-2 gap-4">
         {charities.map((c) => (
           <Card key={c.id}>
-            <div className="h-32 rounded-xl overflow-hidden bg-[#F7F7F3]"><SafeImage src={c.image_url!} alt={c.name} className="h-full w-full object-cover" fallbackClassName="h-32 w-full" /></div>
+            <div className="h-32 rounded-xl overflow-hidden bg-[#F4F4F1]"><SafeImage src={c.image_url!} alt={c.name} className="h-full w-full object-cover" fallbackClassName="h-32 w-full" /></div>
             <h3 className="font-semibold mt-3 flex gap-2">{c.name} {c.featured && <Badge variant="lime">Featured</Badge>}</h3>
             <p className="text-sm text-zinc-500 line-clamp-2">{c.description}</p>
             <div className="mt-3 flex gap-2">

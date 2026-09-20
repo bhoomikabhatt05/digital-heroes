@@ -143,22 +143,22 @@ export default function ScoresPage() {
             )}
           </div>
         </form>
-        <p className="text-xs leading-5 text-[#8D8D98] mt-3">When you add a 6th score, the oldest is automatically removed.</p>
+        <p className="text-xs leading-5 text-[#5F5F5A] mt-3">When you add a 6th score, the oldest is automatically removed.</p>
       </Card>
 
       <Card className="p-6">
         <h3 className="text-[14px] font-semibold tracking-[-0.01em] text-[#111113]">History ({scores.length}/5)</h3>
         {sorted.length === 0 ? (
-          <div className="mt-4 rounded-xl border border-dashed border-[#E8E8E3] py-10 text-center">
+          <div className="mt-4 rounded-xl border border-dashed border-[rgba(17,17,19,0.10)] py-10 text-center">
             <p className="text-sm font-medium text-[#111113]">No scores yet</p>
-            <p className="text-sm text-[#8D8D98] mt-1">Add your first score above.</p>
+            <p className="text-sm text-[#5F5F5A] mt-1">Add your first score above.</p>
           </div>
         ) : (
           <div className="mt-4 space-y-2">
             {sorted.map((s, idx) => (
-              <div key={s.id} className="flex items-center justify-between rounded-xl border border-[#E8E8E3] bg-white px-4 py-3">
+              <div key={s.id} className="flex items-center justify-between rounded-xl border border-[rgba(17,17,19,0.10)] bg-white px-4 py-3">
                 <div className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#111113] text-white text-sm font-bold">{s.score}</span>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0B0B0C] text-white text-sm font-bold">{s.score}</span>
                   <span className="text-sm font-medium text-[#111113]">{new Date(s.played_on).toLocaleDateString()}</span>
                   {idx === 0 && <Badge variant="lime">Latest</Badge>}
                 </div>

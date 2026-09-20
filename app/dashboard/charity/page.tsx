@@ -72,10 +72,10 @@ export default function CharityPage() {
           />
           <span className="text-[24px] font-bold tracking-[-0.02em] text-[#111113] w-16 text-right">{percentage}%</span>
         </div>
-        <div className="mt-2 h-2 rounded-full bg-[#E8E8E3] overflow-hidden">
-          <div className="h-full bg-[#D9FF82] transition-all duration-200" style={{ width: `${percentage}%` }} />
+        <div className="mt-2 h-2 rounded-full bg-[rgba(17,17,19,0.10)] overflow-hidden">
+          <div className="h-full bg-[#C8FF3D] transition-all duration-200" style={{ width: `${percentage}%` }} />
         </div>
-        <p className="text-xs leading-5 text-[#8D8D98] mt-2">
+        <p className="text-xs leading-5 text-[#5F5F5A] mt-2">
           On a <span className="font-medium text-[#111113]">£20</span> plan, <span className="font-medium text-[#111113]">{percentage}%</span> = £{(20 * percentage / 100).toFixed(2)}/mo to charity.
         </p>
       </Card>
@@ -87,10 +87,10 @@ export default function CharityPage() {
             <div
               key={c.id}
               className={`overflow-hidden rounded-2xl border bg-white p-0 transition-all ${
-                isSelected ? "border-[#111113] shadow-[0_4px_16px_rgba(0,0,0,0.08)] ring-1 ring-[#111113]" : "border-[#E8E8E3] hover:border-[#D1D1CC] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
+                isSelected ? "border-[#111113] shadow-[0_4px_16px_rgba(0,0,0,0.08)] ring-1 ring-[#111113]" : "border-[rgba(17,17,19,0.10)] hover:border-[#D1D1CC] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
               }`}
             >
-              <div className="h-36 overflow-hidden bg-[#F7F7F3]">
+              <div className="h-36 overflow-hidden bg-[#F4F4F1]">
                 <SafeImage src={c.image_url!} alt={c.name} className="h-full w-full object-cover" fallbackClassName="h-36 w-full" />
               </div>
               <div className="p-5">

@@ -21,11 +21,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
     }
   }
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F7F3] dark:bg-[#0A0A0B]">
-      <header className="sticky top-0 z-30 border-b border-[#E8E8E3]/70 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-[#17171A]/80">
+    <div className="min-h-screen flex flex-col bg-[#F4F4F1] dark:bg-[#0A0A0B]">
+      <header className="sticky top-0 z-30 border-b border-[rgba(17,17,19,0.10)]/70 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-[#171719]/80">
         <div className="mx-auto max-w-[1160px] px-6 h-[60px] flex items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="h-7 w-7 rounded-lg bg-[#111113] text-white dark:bg-white dark:text-[#111113] flex items-center justify-center text-xs font-bold">DH</div>
+            <div className="h-7 w-7 rounded-lg bg-[#0B0B0C] text-white dark:bg-white dark:text-[#111113] flex items-center justify-center text-xs font-bold">DH</div>
             <span className="font-semibold tracking-[-0.02em] text-[14px] text-[#111113] dark:text-white">Digital Heroes</span>
           </Link>
 
@@ -34,7 +34,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
               <Link
                 key={n.href}
                 href={n.href}
-                className="rounded-full px-3 py-1.5 font-medium text-[#6B6B78] hover:text-[#111113] hover:bg-[#F7F7F3] dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white/10 transition-colors"
+                className="rounded-full px-3 py-1.5 font-medium text-[#6B6B78] hover:text-[#111113] hover:bg-[#F4F4F1] dark:text-zinc-400 dark:hover:text-white dark:hover:bg-white/10 transition-colors"
               >
                 {n.label}
               </Link>
@@ -50,13 +50,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
             }}
             className="shrink-0"
           >
-            <button className="rounded-full border border-[#E8E8E3] bg-white px-4 py-1.5 text-[13px] font-medium text-[#111113] hover:bg-[#F7F7F3] dark:border-white/15 dark:bg-transparent dark:text-white dark:hover:bg-white/10 transition-colors">
+            <button className="rounded-full border border-[rgba(17,17,19,0.10)] bg-white px-4 py-1.5 text-[13px] font-medium text-[#111113] hover:bg-[#F4F4F1] dark:border-white/15 dark:bg-transparent dark:text-white dark:hover:bg-white/10 transition-colors">
               Sign out
             </button>
           </form>
         </div>
 
-        <div className="md:hidden border-t border-[#E8E8E3] dark:border-white/10 overflow-x-auto">
+        <div className="md:hidden border-t border-[rgba(17,17,19,0.10)] dark:border-white/10 overflow-x-auto">
           <div className="flex gap-1 px-6 py-2 text-sm whitespace-nowrap">
             {nav.map((n) => (
               <Link key={n.href} href={n.href} className="rounded-full px-3 py-1.5 font-medium text-[#6B6B78] hover:text-[#111113] dark:text-zinc-400">

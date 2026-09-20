@@ -4,14 +4,16 @@ export function Badge({
   variant = "default",
   className = "",
   ...props
-}: React.HTMLAttributes<HTMLSpanElement> & { variant?: "default" | "success" | "warning" | "outline" | "lime" | "dark" }) {
+}: React.HTMLAttributes<HTMLSpanElement> & { variant?: "default" | "success" | "warning" | "outline" | "lime" | "dark" | "error" | "info" }) {
   const map: Record<string, string> = {
-    default: "bg-[#111113] text-white",
-    success: "bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-500/15 dark:text-emerald-300 dark:border-emerald-500/30",
-    warning: "bg-amber-50 text-amber-700 border border-amber-200",
-    outline: "border border-[#E8E8E3] text-[#6B6B78] bg-white dark:border-white/15 dark:text-zinc-300 dark:bg-transparent",
-    lime: "bg-[#D9FF82] text-[#111113] font-semibold border border-[#D9FF82]",
-    dark: "bg-white/10 text-white border border-white/15 backdrop-blur",
+    default: "bg-[#0B0B0C] text-white",
+    success: "bg-[#8EDB5A]/15 text-[#6BAF3A] border border-[#8EDB5A]/30",
+    warning: "bg-[#F2C94C]/15 text-[#8A6D00] border border-[#F2C94C]/30",
+    error: "bg-[#FF6B6B]/15 text-[#CC4444] border border-[#FF6B6B]/30",
+    info: "bg-[#78A9FF]/15 text-[#3A6BC5] border border-[#78A9FF]/30",
+    outline: "border border-[rgba(17,17,19,0.10)] text-[#5F5F5A] bg-white dark:border-white/10 dark:text-[#A5A5A0] dark:bg-transparent",
+    lime: "bg-[#C8FF3D] text-[#0B0B0C] font-semibold border border-[#C8FF3D]",
+    dark: "bg-white/10 text-[#F5F5F2] border border-white/10 backdrop-blur",
   };
   return (
     <span
