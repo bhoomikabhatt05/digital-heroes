@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,14 +16,49 @@ export default function DrawManager() {
   const [simData, setSimData] = useState<any>(null);
   const { toast } = useToast();
 
-  function createDraw() {
+  // Load real draws when Supabase is configured; keep demo fallback
+  useEffect(() => {
+    (async () => {
+      try {
+        const { createClient } = await import("@/lib/supabase/client");
+        const { isSupabaseConfigured } = await import("@/lib/supabase/client");
+        if (!isSupabaseConfigured()) return;
+        const supabase = createClient();
+        const { data, error } = await supabase.from("draws").select("*").order("draw_date", { ascending: false }).limit(20);
+        if (error) { toast(error.message, "error"); return; }
+        if (data && data.length) setDraws(data as unknown as DrawRow[]);
+      } catch (e: any) { toast(e?.message || "Failed to load draws", "error"); }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function createDraw() {
     const d: DrawRow = { id: Math.random().toString(36).slice(2), draw_date: "2026-11-15T12:00:00.000Z", status: "draft", draw_type: "random", winning_numbers: null, prize_pool: calculatePrizePool(8921), jackpot_rollover: 0 };
+    try {
+      const { isSupabaseConfigured } = await import("@/lib/supabase/client");
+      if (isSupabaseConfigured()) {
+        const { createClient } = await import("@/lib/supabase/client");
+        const supabase = createClient();
+        const { data, error } = await supabase.from("draws").insert({ draw_date: d.draw_date, status: d.status, draw_type: d.draw_type, prize_pool: d.prize_pool, jackpot_rollover: d.jackpot_rollover }).select().single();
+        if (error) throw error;
+        if (data) { setDraws((p) => [data as unknown as DrawRow, ...p]); toast("Draw created in Supabase", "success"); return; }
+      }
+    } catch (e: any) { toast(e.message, "error"); }
     setDraws((p) => [d, ...p]);
     toast("Draw created", "success");
   }
 
-  function generateNumbers(id: string) {
+  async function generateNumbers(id: string) {
     const nums = generateDrawNumbers();
+    try {
+      const { isSupabaseConfigured } = await import("@/lib/supabase/client");
+      if (isSupabaseConfigured()) {
+        const { createClient } = await import("@/lib/supabase/client");
+        const supabase = createClient();
+        const { error } = await supabase.from("draws").update({ winning_numbers: nums }).eq("id", id);
+        if (error) throw error;
+      }
+    } catch (e: any) { toast(e.message, "error"); return; }
     setDraws((p) => p.map((d) => d.id === id ? { ...d, winning_numbers: nums } : d));
     toast(`Numbers generated: ${nums.join(", ")}`, "success");
   }
@@ -45,7 +80,17 @@ export default function DrawManager() {
     toast("Simulation completed", "success");
   }
 
-  function publish(id: string) {
+  async function publish(id: string) {
+    try {
+      const { isSupabaseConfigured } = await import("@/lib/supabase/client");
+      if (isSupabaseConfigured()) {
+        const { createClient } = await import("@/lib/supabase/client");
+        const supabase = createClient();
+        const draw = draws.find((d) => d.id === id);
+        const { error } = await supabase.from("draws").update({ status: "published", winning_numbers: draw?.winning_numbers }).eq("id", id);
+        if (error) throw error;
+      }
+    } catch (e: any) { toast(e.message, "error"); return; }
     setDraws((p) => p.map((d) => d.id === id ? { ...d, status: "published" as const } : d));
     toast("Draw published", "success");
   }

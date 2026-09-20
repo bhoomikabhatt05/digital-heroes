@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
@@ -21,16 +22,31 @@ export default function WinningsPage() {
       toast("Select a proof file", "error");
       return;
     }
+    if (file.size > 5 * 1024 * 1024) { toast("File must be under 5MB", "error"); return; }
+    if (!file.type.startsWith("image/") && file.type !== "application/pdf") { toast("Only images or PDF allowed", "error"); return; }
     setUploading(true);
     if (configured) {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      const path = `${user?.id}/${Date.now()}_${file.name}`;
-      const { error } = await supabase.storage.from("winner-proofs").upload(path, file);
-      if (error) toast(error.message, "error");
-      else {
-        await supabase.from("winner_proofs").insert({ winner_id: winners[0].id, user_id: user?.id, proof_path: path });
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) throw new Error("Not authenticated");
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+        const path = `${user.id}/${Date.now()}_${safeName}`;
+        const { error } = await supabase.storage.from("winner-proofs").upload(path, file, { contentType: file.type, upsert: false });
+        if (error) throw error;
+        // Try winner_id column first, fallback to winner if schema differs
+        const { error: dbError } = await supabase.from("winner_proofs").insert({ winner_id: winners[0].id, user_id: user.id, proof_path: path } as any);
+        if (dbError) {
+          const msg = dbError.message.toLowerCase();
+          if (msg.includes("winner_id") || msg.includes("column")) {
+            const { error: retryError } = await supabase.from("winner_proofs").insert({ winner: winners[0].id, user: user.id, proof_path: path } as any);
+            if (retryError) throw retryError;
+          } else throw dbError;
+        }
         toast("Proof uploaded — awaiting verification", "success");
+        setFile(null);
+      } catch (e: any) {
+        toast(e.message || "Upload failed — check bucket exists and is private (see supabase/storage-policies.sql)", "error");
       }
     } else {
       toast("Proof uploaded (demo) — awaiting verification", "success");
