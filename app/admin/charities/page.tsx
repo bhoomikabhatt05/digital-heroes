@@ -15,7 +15,7 @@ export default function AdminCharities() {
 
   function add() {
     if (!form.name || !form.slug) { toast("Name and slug required", "error"); return; }
-    setCharities((p) => [{ id: Math.random().toString(36).slice(2), name: form.name, slug: form.slug, description: form.description, image_url: form.image_url || `https://picsum.photos/seed/${form.slug}/600/400`, featured: false, active: true, created_at: new Date().toISOString() } as any, ...p]);
+    setCharities((p) => [{ id: Math.random().toString(36).slice(2), name: form.name, slug: form.slug, description: form.description, image_url: form.image_url || `https://picsum.photos/seed/${form.slug}/600/400`, featured: false, active: true, created_at: new Date().toISOString() } as unknown as typeof mockCharities[number], ...p]);
     toast("Charity created", "success");
     setForm({ name: "", slug: "", description: "", image_url: "" });
   }

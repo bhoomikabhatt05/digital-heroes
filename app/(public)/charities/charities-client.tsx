@@ -4,8 +4,9 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { SafeImage } from "@/components/ui/safe-image";
+import type { Charity } from "@/lib/types";
 
-export default function CharitiesClient({ charities }: { charities: any[] }) {
+export default function CharitiesClient({ charities }: { charities: Charity[] }) {
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<"all" | "featured">("all");
   const filtered = charities.filter((c) => {

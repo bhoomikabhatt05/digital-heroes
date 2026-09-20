@@ -21,7 +21,7 @@ export default function CharityPage() {
     const supabase = createClient();
     (async () => {
       const { data: ch } = await supabase.from("charities").select("*").eq("active", true);
-      if (ch?.length) setCharities(ch as any);
+      if (ch?.length) setCharities(ch as unknown as typeof mockCharities);
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         const { data: profile } = await supabase.from("profiles").select("charity_id,charity_percentage").eq("id", user.id).single();

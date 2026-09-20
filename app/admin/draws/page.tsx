@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
@@ -10,13 +11,13 @@ type DrawRow = { id: string; draw_date: string; status: "draft" | "simulated" | 
 
 export default function DrawManager() {
   const [draws, setDraws] = useState<DrawRow[]>([
-    { id: "d1", draw_date: new Date(Date.now() + 12 * 86400000).toISOString(), status: "draft", draw_type: "random", winning_numbers: null, prize_pool: 89340, jackpot_rollover: 12400 },
+    { id: "d1", draw_date: "2026-10-15T12:00:00.000Z", status: "draft", draw_type: "random", winning_numbers: null, prize_pool: 89340, jackpot_rollover: 12400 },
   ]);
   const [simData, setSimData] = useState<any>(null);
   const { toast } = useToast();
 
   function createDraw() {
-    const d: DrawRow = { id: Math.random().toString(36).slice(2), draw_date: new Date(Date.now() + 30 * 86400000).toISOString(), status: "draft", draw_type: "random", winning_numbers: null, prize_pool: calculatePrizePool(8921), jackpot_rollover: 0 };
+    const d: DrawRow = { id: Math.random().toString(36).slice(2), draw_date: "2026-11-15T12:00:00.000Z", status: "draft", draw_type: "random", winning_numbers: null, prize_pool: calculatePrizePool(8921), jackpot_rollover: 0 };
     setDraws((p) => [d, ...p]);
     toast("Draw created", "success");
   }

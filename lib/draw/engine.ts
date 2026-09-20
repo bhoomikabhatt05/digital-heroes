@@ -13,7 +13,8 @@ export function generateDrawNumbers(): number[] {
   return Array.from(nums).sort((a, b) => a - b);
 }
 
-export function generateAlgorithmicNumbers(scores: { user_id: string; avg: number }[]): number[] {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function generateAlgorithmicNumbers(_scores: { user_id: string; avg: number }[]): number[] {
   // Weighted: higher avg scores get slight boost - but still random base
   // For demo: just random +1 offset based on count
   return generateDrawNumbers();

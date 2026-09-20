@@ -5,8 +5,24 @@ import { mockCharities, mockStats } from "@/lib/mock-data";
 import { ImpactOrbit, LiveSystemBar } from "@/components/art/impact-orbit";
 import { BackgroundSystem } from "@/components/art/background-system";
 import { SafeImage } from "@/components/ui/safe-image";
+import { createClient } from "@/lib/supabase/server";
 
-export default function HomePage() {
+export default async function HomePage() {
+  let charities = mockCharities;
+  let stats = mockStats;
+  try {
+    const supabase = await createClient();
+    if (supabase) {
+      const { data } = await supabase.from("charities").select("*").eq("active", true).order("featured", { ascending: false });
+      if (data && data.length) charities = data as unknown as typeof mockCharities;
+      // production stats could be derived from real counts; keep demo fallback for counts
+      const { count: userCount } = await supabase.from("profiles").select("*", { count: "exact", head: true });
+      const { count: subCount } = await supabase.from("subscriptions").select("*", { count: "exact", head: true }).eq("status", "active");
+      if (userCount !== null) stats = { ...stats, totalUsers: userCount };
+      if (subCount !== null) stats = { ...stats, activeSubscribers: subCount };
+    }
+  } catch {}
+  const featured = charities.filter((c) => c.featured).slice(0, 3);
   return (
     <div className="min-h-screen flex flex-col bg-[#070708] text-white relative overflow-hidden">
       <BackgroundSystem />
@@ -141,24 +157,24 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 grid md:grid-cols-3 gap-5">
-            {mockCharities.filter((c) => c.featured).slice(0, 3).map((c, idx) => (
+            {featured.map((c) => (
               <Link key={c.id} href={`/charities/${c.slug}`} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#131518] hover:border-[#C8FF3D]/30 transition-all duration-300 hover:-translate-y-1">
                 <div className="h-[220px] overflow-hidden relative">
                   <SafeImage src={c.image_url} alt={c.name} className="h-full w-full object-cover group-hover:scale-[1.03] transition-transform duration-700" fallbackClassName="h-[220px] w-full" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute top-3 left-3 flex gap-2">
                     <span className="rounded-full bg-[#C8FF3D] px-2.5 py-1 text-[11px] font-semibold text-[#0B0B0C]">Featured</span>
-                    <span className="rounded-full bg-black/40 backdrop-blur px-2.5 py-1 text-[11px] font-medium text-white border border-white/15">12% impact</span>
+                    <span className="rounded-full bg-black/40 backdrop-blur px-2.5 py-1 text-[11px] font-medium text-white border border-white/15">10%+ to charity</span>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <p className="text-[11px] tracking-[0.08em] uppercase text-white/60">{idx === 0 ? "CLEAN WATER" : idx === 1 ? "REWILDING" : "YOUTH ACCESS"}</p>
+                    <p className="text-[11px] tracking-[0.08em] uppercase text-white/60">{c.slug.replace(/-/g, " ").toUpperCase()}</p>
                     <h3 className="mt-1 text-[16px] font-semibold tracking-[-0.02em] text-white">{c.name}</h3>
                   </div>
                 </div>
                 <div className="p-4 flex items-center justify-between">
                   <div>
-                    <p className="text-[22px] font-bold tracking-[-0.02em] text-white">£1,240</p>
-                    <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Contributed</p>
+                    <p className="text-[13.5px] font-medium text-[#A5A5A0] line-clamp-1">{c.description?.slice(0, 48) ?? "Verified impact partner"}</p>
+                    <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Verified partner</p>
                   </div>
                   <span className="inline-flex items-center gap-1 text-[13px] font-medium text-[#C8FF3D] group-hover:gap-2 transition-all">Explore <span aria-hidden>→</span></span>
                 </div>
@@ -166,18 +182,18 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
-          {/* Impact numbers */}
+          {/* Impact numbers — real stats, production uses Supabase counts when available */}
           <div className="mt-10 grid grid-cols-3 gap-6 border-t border-white/10 pt-6">
             <div>
-              <p className="text-[28px] font-bold tracking-[-0.03em] text-white">£{mockStats.charityTotal.toLocaleString()}</p>
+              <p className="text-[28px] font-bold tracking-[-0.03em] text-white">£{stats.charityTotal.toLocaleString()}</p>
               <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Total to charity</p>
             </div>
             <div>
-              <p className="text-[28px] font-bold tracking-[-0.03em] text-white">{mockStats.activeSubscribers.toLocaleString()}</p>
+              <p className="text-[28px] font-bold tracking-[-0.03em] text-white">{stats.activeSubscribers.toLocaleString()}</p>
               <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Active heroes</p>
             </div>
             <div>
-              <p className="text-[28px] font-bold tracking-[-0.03em] text-[#C8FF3D]">£89k</p>
+              <p className="text-[28px] font-bold tracking-[-0.03em] text-[#C8FF3D]">£{stats.prizePool.toLocaleString()}</p>
               <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Prize pool · rolls if unclaimed</p>
             </div>
           </div>

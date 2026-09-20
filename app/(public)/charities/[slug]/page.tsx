@@ -1,5 +1,5 @@
 import { Navbar, Footer } from "@/components/landing/navbar";
-import { Card, DarkCard } from "@/components/ui/card";
+import { DarkCard } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { SafeImage } from "@/components/ui/safe-image";
 
 export default async function CharityDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let charity: any = mockCharities.find((c) => c.slug === slug);
   try {
     const supabase = await createClient();
