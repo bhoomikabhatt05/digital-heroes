@@ -1,15 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-
-const nav = [
-  { href: "/dashboard", label: "Overview" },
-  { href: "/dashboard/scores", label: "Scores" },
-  { href: "/dashboard/draws", label: "Draws" },
-  { href: "/dashboard/charity", label: "Charity" },
-  { href: "/dashboard/winnings", label: "Winnings" },
-  { href: "/dashboard/settings", label: "Settings" },
-];
+import { DashboardNav, DashboardMobileNav } from "@/components/dashboard/nav";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
@@ -50,18 +42,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <span className="font-semibold tracking-[-0.02em] text-[14px] text-white">Digital Heroes</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1 text-[13.5px]">
-            {nav.map((n) => (
-              <Link
-                key={n.href}
-                href={n.href}
-                className="rounded-full px-3 py-1.5 font-medium text-[#A5A5A0] hover:text-white hover:bg-white/10 transition-colors"
-              >
-                {n.label}
-              </Link>
-            ))}
-          </nav>
-
+          <DashboardNav />
           <form
             action={async () => {
               "use server";
@@ -69,23 +50,14 @@ export default async function DashboardLayout({ children }: { children: React.Re
               if (s) await s.auth.signOut();
               redirect("/");
             }}
-            className="shrink-0"
+            className="shrink-0 ml-auto"
           >
             <button className="rounded-full border border-white/10 bg-white/10 px-4 py-1.5 text-[13px] font-medium text-white hover:bg-white/15 transition-colors">
               Sign out
             </button>
           </form>
         </div>
-
-        <div className="md:hidden border-t border-white/10 overflow-x-auto">
-          <div className="flex gap-1 px-6 py-2 text-sm whitespace-nowrap">
-            {nav.map((n) => (
-              <Link key={n.href} href={n.href} className="rounded-full px-3 py-1.5 font-medium text-[#A5A5A0] hover:text-white">
-                {n.label}
-              </Link>
-            ))}
-          </div>
-        </div>
+        <DashboardMobileNav />
       </header>
 
       <main className="relative z-10 mx-auto w-full max-w-[1160px] px-6 py-8 flex-1">{children}</main>

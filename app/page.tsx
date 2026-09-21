@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { mockCharities } from "@/lib/mock-data";
 import { createClient } from "@/lib/supabase/server";
 import { ScoreOrbit } from "@/components/art/impact-orbit";
+import { SafeImage } from "@/components/ui/safe-image";
 
 function HeroOrbit() {
   return (
@@ -175,15 +176,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* IMPACT ATLAS preview */}
+      {/* IMPACT ATLAS preview — fixed images */}
       <section className="relative bg-[#0B0B0C] py-12">
         <div className="mx-auto max-w-[1160px] px-6">
           <div className="grid md:grid-cols-3 gap-5">
             {featured.slice(0,3).map(c => (
-              <div key={c.id} className="rounded-2xl overflow-hidden border border-white/10 bg-[#131518]">
-                <div className="h-[180px] bg-[#1a1a1a] flex items-center justify-center text-white/30 text-xs">Image: {c.name}</div>
-                <div className="p-4"><p className="font-semibold text-white text-sm">{c.name}</p><p className="text-xs text-[#A5A5A0] line-clamp-2">{c.description}</p></div>
-              </div>
+              <Link key={c.id} href={`/charities/${c.slug}`} className="group rounded-2xl overflow-hidden border border-white/10 bg-[#131518] hover:border-[#C8FF3D]/20 transition-all hover:-translate-y-1 block">
+                <div className="h-[180px] overflow-hidden bg-[#0B0B0C] relative">
+                  <SafeImage src={c.image_url} alt={c.name} className="h-full w-full object-cover group-hover:scale-[1.03] transition-transform duration-700" fallbackClassName="h-[180px] w-full bg-gradient-to-br from-[#131518] to-[#0B0B0C] flex items-center justify-center" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" aria-hidden />
+                </div>
+                <div className="p-4">
+                  <p className="font-semibold text-white text-sm group-hover:text-[#C8FF3D] transition-colors">{c.name}</p>
+                  <p className="text-xs text-[#A5A5A0] line-clamp-2 mt-1">{c.description}</p>
+                  <span className="mt-2 inline-flex text-xs font-medium text-[#C8FF3D]">Explore <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span></span>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
