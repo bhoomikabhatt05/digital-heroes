@@ -80,29 +80,66 @@ export function ScoreOrbit({ scores }: { scores: number[] }) {
   const points = scores.slice(0, 5);
   while (points.length < 5) points.push(0);
   const coords = [
-    { x: 20, y: 50 },
-    { x: 45, y: 30 },
-    { x: 70, y: 55 },
-    { x: 88, y: 35 },
-    { x: 110, y: 60 },
+    { x: 18, y: 52 },
+    { x: 36, y: 32 },
+    { x: 56, y: 58 },
+    { x: 76, y: 36 },
+    { x: 92, y: 58 },
   ];
   return (
-    <div className="relative w-full h-[160px] md:h-[180px] overflow-hidden rounded-2xl border border-white/10 bg-[#0D0E10] p-4">
+    <div className="relative w-full h-[180px] md:h-[200px] overflow-hidden rounded-2xl border border-white/10 bg-[#0D0E10] p-4">
       <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">SCORE ORBIT — 5 rolling</p>
-      <svg viewBox="0 0 140 80" className="absolute inset-0 w-full h-full pt-8" preserveAspectRatio="none">
-        <path d={`M ${coords.map((c, i) => `${i === 0 ? "M" : "L"} ${c.x} ${c.y}`).join(" ")}`} fill="none" stroke="#C8FF3D" strokeWidth="1.2" opacity="0.9" />
-        <path d={`M ${coords.map((c, i) => `${i === 0 ? "M" : "L"} ${c.x} ${c.y}`).join(" ")}`} fill="none" stroke="rgba(200,255,61,0.25)" strokeWidth="1.2" />
-        {coords.map((c, i) => (
-          <g key={i}>
-            <circle cx={c.x} cy={c.y} r="6" fill={i === 0 ? "#C8FF3D" : "#191B1F"} stroke={i === 0 ? "#C8FF3D" : "rgba(255,255,255,0.15)"} strokeWidth="1" />
-            <text x={c.x} y={c.y + 1} textAnchor="middle" fontSize="6" fontWeight="700" fill={i === 0 ? "#0B0B0C" : "white"}>
-              {points[i] || "—"}
-            </text>
-          </g>
-        ))}
+
+      {/* orbital path — subtle thin line */}
+      <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full pt-10" preserveAspectRatio="none" aria-hidden>
+        <path
+          d={`M ${coords.map((c, i) => `${i === 0 ? "M" : "L"} ${c.x} ${c.y}`).join(" ")}`}
+          fill="none"
+          stroke="rgba(200,255,61,0.18)"
+          strokeWidth="0.6"
+          vectorEffect="non-scaling-stroke"
+        />
       </svg>
-      <div className="absolute bottom-3 left-4 right-4 flex justify-between text-[11px] text-[#74746F]">
-        <span>Oldest</span>
+
+      {/* celestial nodes — genuinely circular, 52–60px desktop, 42–48px mobile */}
+      {coords.map((c, i) => {
+        const val = points[i];
+        const isEmpty = !val;
+        const isLatest = i === 0 && !isEmpty;
+        return (
+          <div
+            key={i}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${c.x}%`, top: `${c.y}%` }}
+          >
+            <div className="relative flex items-center justify-center">
+              {/* thin outer ring — subtle */}
+              <div
+                className={`absolute rounded-full ${
+                  isLatest ? "border border-[#C8FF3D]/25" : isEmpty ? "border border-white/[0.06]" : "border border-white/10"
+                }`}
+                style={{ width: "58px", height: "58px", left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
+                aria-hidden
+              />
+              {/* inner disc — equal width/height, circular */}
+              <div
+                className={`flex items-center justify-center rounded-full text-[13px] font-bold tracking-[-0.02em] w-[44px] h-[44px] md:w-[52px] md:h-[52px] ${
+                  isLatest
+                    ? "bg-[#C8FF3D] text-[#0B0B0C] shadow-[0_0_14px_rgba(200,255,61,0.28)]"
+                    : isEmpty
+                    ? "bg-[#131518] text-[#6B6B78] border border-white/[0.07]"
+                    : "bg-[#191B1F] text-white border border-white/10"
+                }`}
+              >
+                {val || "—"}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+
+      <div className="absolute bottom-3 left-4 right-4 flex justify-between text-[11px] tracking-wide">
+        <span className="text-[#5A5A56]">Oldest</span>
         <span className="text-[#C8FF3D]">Latest →</span>
       </div>
     </div>
