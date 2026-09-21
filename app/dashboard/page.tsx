@@ -55,8 +55,8 @@ export default async function DashboardPage() {
           <div className="rounded-2xl border border-white/10 bg-[#131518] p-4">
             <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Subscription</p>
             <p className="mt-1 text-sm font-bold text-white flex items-center gap-2">
-              <span className={`h-2 w-2 rounded-full ${isSubscribed ? "bg-[#C8FF3D]" : "bg-[#FF8A5B]"}`} />
-              {isSubscribed ? "ACTIVE" : "NOT ACTIVE"}
+              <span className={`h-2 w-2 rounded-full ${isSubscribed ? "bg-[#C8FF3D] shadow-[0_0_8px_rgba(200,255,61,0.5)]" : "bg-[#FF8A5B]"}`} />
+              {isSubscribed ? "ACTIVE" : "INACTIVE"}
             </p>
             <p className="text-xs text-[#A5A5A0] mt-1">{isSubscribed ? (subscription?.plan ?? "monthly") : "Choose a plan →"}</p>
           </div>
@@ -70,10 +70,10 @@ export default async function DashboardPage() {
             <p className="mt-1 text-sm font-bold text-white truncate">{selectedCharity?.name ?? "Choose"}</p>
             <p className="text-xs text-[#61E7FF] mt-1">Verified impact</p>
           </div>
-          <div className="rounded-2xl border border-[#C8FF3D]/30 bg-[#C8FF3D]/10 p-4">
-            <p className="text-[11px] tracking-[0.08em] uppercase text-[#0B0B0C]">Contribution</p>
-            <p className="mt-1 text-[20px] font-black tracking-[-0.02em] text-[#0B0B0C]">{profile?.charity_percentage ?? 10}%</p>
-            <p className="text-xs text-[#0B0B0C]/60">of subscription</p>
+          <div className="rounded-2xl border border-white/10 bg-[#131518] p-4">
+            <p className="text-[11px] tracking-[0.08em] uppercase text-[#A5A5A0]">Contribution</p>
+            <p className="mt-1 text-[20px] font-black tracking-[-0.02em] text-white">{profile?.charity_percentage ?? 10}%</p>
+            <p className="text-xs text-[#A5A5A0] mt-1">of subscription <span className="text-[#C8FF3D]">•</span> £{((20 * (profile?.charity_percentage ?? 10)) / 100).toFixed(2)}/mo</p>
           </div>
         </div>
 
@@ -119,18 +119,18 @@ export default async function DashboardPage() {
             <Link href="/dashboard/charity" className="mt-3 inline-flex text-xs font-medium text-[#111113] hover:text-[#5F5F5A]">Adjust contribution →</Link>
           </Card>
 
-          <Card className="p-5 bg-[#131518] border-white/10 text-white">
+          <Card className="p-5 bg-[#131518] border-white/10 text-white premium-card-dark">
             <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">Draw participation</p>
             <p className="mt-2 text-[13.5px] leading-6 text-[#A5A5A0]">Your 5-number entry is auto-generated for each active draw.</p>
             <div className="mt-4 flex gap-2">
               {[7, 14, 23, 31, 42].map((n) => (
-                <span key={n} className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#0B0B0C] text-sm font-bold">{n}</span>
+                <span key={n} className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#0B0B0C] text-sm font-bold shadow-sm">{n}</span>
               ))}
             </div>
-            <p className="text-xs leading-5 text-[#74746F] mt-3">
-              Status: <Badge variant="dark" className="ml-1">{nextDraw?.status ?? "draft"}</Badge>
-              <span className="ml-2">{nextDraw?.winning_numbers ? `Winning: ${nextDraw.winning_numbers.join(", ")}` : "Awaiting draw"}</span>
-            </p>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-2.5 py-1 text-xs font-medium text-white">{(nextDraw?.status ?? "draft").toUpperCase()}</span>
+              <span className="text-xs font-medium text-[#A5A5A0]">{nextDraw?.winning_numbers ? `Winning: ${nextDraw.winning_numbers.join(", ")}` : "Awaiting draw"}</span>
+            </div>
           </Card>
         </div>
       </div>
