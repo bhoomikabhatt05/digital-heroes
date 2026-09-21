@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
 import { mockStats } from "@/lib/mock-data";
@@ -34,12 +35,12 @@ export default async function AdminOverview() {
           ))}
         </div>
       </Card>
-      <Card>
+      <Card className="premium-card">
         <h3 className="font-semibold">Quick actions</h3>
         <div className="mt-3 flex flex-wrap gap-2 text-sm">
-          <a href="/admin/draws" className="rounded-full border px-4 py-2">Configure draw</a>
-          <a href="/admin/winners" className="rounded-full border px-4 py-2">Verify winners</a>
-          <a href="/admin/charities" className="rounded-full border px-4 py-2">Manage charities</a>
+          <Link href="/admin/draws" className="rounded-full border border-[rgba(17,17,19,0.10)] px-4 py-2 hover:border-[#C8FF3D]/30 hover:bg-[#C8FF3D]/10 transition-colors">Configure draw</Link>
+          <Link href="/admin/winners" className="rounded-full border border-[rgba(17,17,19,0.10)] px-4 py-2 hover:border-[#C8FF3D]/30 hover:bg-[#C8FF3D]/10 transition-colors">Verify winners</Link>
+          <Link href="/admin/charities" className="rounded-full border border-[rgba(17,17,19,0.10)] px-4 py-2 hover:border-[#C8FF3D]/30 hover:bg-[#C8FF3D]/10 transition-colors">Manage charities</Link>
         </div>
       </Card>
     </div>
