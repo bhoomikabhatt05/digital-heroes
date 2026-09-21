@@ -24,13 +24,25 @@ export default function LoginPage() {
     }
     setLoading(true);
     const supabase = createClient();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data: signInData, error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
       toast(error.message, "error");
       return;
     }
     toast("Welcome back!", "success");
+    try {
+      const userId = signInData.user?.id;
+      if (userId) {
+        const { data: profile } = await supabase.from("profiles").select("role").eq("id", userId).single();
+        if (profile?.role === "admin") {
+          router.push("/admin");
+          return;
+        }
+      }
+    } catch {
+      // fall through to dashboard on any profile fetch error
+    }
     router.push("/dashboard");
   }
 
