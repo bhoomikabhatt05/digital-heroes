@@ -21,7 +21,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
     }
   }
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B0B0C] text-white">
+    <div className="min-h-screen flex flex-col bg-[#0B0B0C] text-white relative overflow-hidden">
+      {/* Ambient live canvas — behind all UI */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <div className="ambient-layer ambient-1" style={{ top: "-8%", right: "-6%" }} />
+        <div className="ambient-layer ambient-2" style={{ bottom: "-10%", left: "-4%" }} />
+        <div className="ambient-layer ambient-3" style={{ top: "28%", left: "18%" }} />
+        <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "48px 48px" }} />
+      </div>
+
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0B0B0C]/80 backdrop-blur-xl">
         <div className="mx-auto max-w-[1160px] px-6 h-[60px] flex items-center justify-between gap-6">
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
@@ -67,7 +75,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-[1160px] px-6 py-8 flex-1 bg-[#0B0B0C]">{children}</main>
+      <main className="relative z-10 mx-auto w-full max-w-[1160px] px-6 py-8 flex-1">{children}</main>
     </div>
   );
 }
