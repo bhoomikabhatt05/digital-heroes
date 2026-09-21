@@ -33,14 +33,15 @@ export default async function DrawsPage() {
       </div>
 
       {/* Next draw hero event */}
-      <div className="rounded-3xl border border-white/10 bg-[#0B0B0C] text-white p-6 md:p-7 overflow-hidden relative">
-        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#C8FF3D]/10 blur-3xl" aria-hidden />
+      <div className="rounded-3xl border border-white/10 bg-[#0B0B0C] text-white p-6 md:p-7 overflow-hidden relative hero-mouse">
+        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#C8FF3D]/10 blur-3xl hero-glow" aria-hidden />
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)", backgroundSize: "32px 32px" }} aria-hidden />
+        <div className="hairline" aria-hidden />
         <div className="relative grid md:grid-cols-2 gap-6">
           <div>
             <p className="text-[11px] tracking-[0.08em] uppercase text-[#A5A5A0]">NEXT DRAW</p>
             <div className="mt-3 flex gap-3">
-              <div className="rounded-2xl bg-[#131518] border border-white/10 px-4 py-3 text-center min-w-[72px]">
+              <div className="rounded-2xl bg-[#131518] border border-white/10 px-4 py-3 text-center min-w-[72px] premium-card-dark">
                 <p className="text-[28px] font-black tracking-[-0.02em] text-white">{String(daysLeft).padStart(2, "0")}</p>
                 <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Days</p>
               </div>
@@ -61,7 +62,7 @@ export default async function DrawsPage() {
           </div>
           <div className="relative flex flex-col justify-center">
             <p className="text-[11px] tracking-[0.08em] uppercase text-[#A5A5A0]">PRIZE POOL</p>
-            <p className="mt-1 text-[36px] font-black tracking-[-0.03em] text-white">£{mockStats.prizePool.toLocaleString()}</p>
+            <p className="mt-1 text-[36px] font-black tracking-[-0.03em] text-white" style={{ textShadow: "0 0 20px rgba(200,255,61,0.15)" }}>£{mockStats.prizePool.toLocaleString()}</p>
             {nextDraw.jackpot_rollover ? (
               <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-[#FF8A5B]/15 border border-[#FF8A5B]/20 px-3 py-1.5 text-xs font-medium text-[#FF8A5B]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#FF8A5B] animate-pulse" />

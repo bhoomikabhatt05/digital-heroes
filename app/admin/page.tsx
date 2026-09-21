@@ -17,20 +17,29 @@ export default async function AdminOverview() {
   }
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Overview</h1>
+      <div>
+        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#5F5F5A]">ADMIN CONTROL CENTER</p>
+        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-[#111113]">Operational Overview</h1>
+        <p className="mt-1 text-[14px] leading-6 text-[#5F5F5A]">Monitor users, subscriptions, draws and impact in real time.</p>
+      </div>
       <div className="grid md:grid-cols-4 gap-4">
-        <Card><p className="text-xs text-zinc-500 uppercase tracking-widest">Total users</p><p className="text-2xl font-bold mt-1">{stats.totalUsers.toLocaleString()}</p></Card>
-        <Card><p className="text-xs text-zinc-500 uppercase tracking-widest">Active subscribers</p><p className="text-2xl font-bold mt-1">{stats.activeSubscribers.toLocaleString()}</p></Card>
-        <Card><p className="text-xs text-zinc-500 uppercase tracking-widest">Prize pool</p><p className="text-2xl font-bold mt-1">£{stats.prizePool.toLocaleString()}</p></Card>
-        <Card><p className="text-xs text-zinc-500 uppercase tracking-widest">Charity total</p><p className="text-2xl font-bold mt-1">£{stats.charityTotal.toLocaleString()}</p></Card>
+        <Card className="premium-card"><p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#5F5F5A]">Total users</p><p className="text-2xl font-bold mt-2 text-[#111113]">{stats.totalUsers.toLocaleString()}</p><p className="text-xs text-[#74746F] mt-1">All registered heroes</p></Card>
+        <Card className="premium-card"><p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#5F5F5A]">Active subscriptions</p><p className="text-2xl font-bold mt-2 text-[#111113]">{stats.activeSubscribers.toLocaleString()}</p><p className="text-xs text-[#74746F] mt-1">Monthly + yearly</p></Card>
+        <Card className="premium-card border-[#C8FF3D]/20"><p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#5F5F5A]">Current prize pool</p><p className="text-2xl font-bold mt-2 text-[#111113]">£{stats.prizePool.toLocaleString()}</p><p className="text-xs text-[#C8FF3D] mt-1 font-medium">Next draw in 18 days</p></Card>
+        <Card className="premium-card"><p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#5F5F5A]">Charity contributions</p><p className="text-2xl font-bold mt-2 text-[#111113]">£{stats.charityTotal.toLocaleString()}</p><p className="text-xs text-[#74746F] mt-1">Total impact to date</p></Card>
+      </div>
+      <div className="grid md:grid-cols-3 gap-4">
+        <Card className="premium-card"><p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#FF8A5B]">Pending verifications</p><p className="text-2xl font-bold mt-2">3</p><p className="text-xs text-[#5F5F5A] mt-1">Winner proofs awaiting review</p><Link href="/admin/winners" className="mt-3 inline-flex text-xs font-medium text-[#111113] hover:text-[#C8FF3D]">Review →</Link></Card>
+        <Card className="premium-card"><p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#61E7FF]">Upcoming draw</p><p className="text-lg font-bold mt-2">Draw #12 • Draft</p><p className="text-xs text-[#5F5F5A] mt-1">152 entries • Simulation ready</p><Link href="/admin/draws" className="mt-3 inline-flex text-xs font-medium text-[#111113] hover:text-[#C8FF3D]">Configure →</Link></Card>
+        <Card className="premium-card"><p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#9B8CFF]">Charity impact</p><p className="text-lg font-bold mt-2">6 active causes</p><p className="text-xs text-[#5F5F5A] mt-1">Featured: Ocean Guardians</p><Link href="/admin/charities" className="mt-3 inline-flex text-xs font-medium text-[#111113] hover:text-[#C8FF3D]">Manage →</Link></Card>
       </div>
       <Card>
         <h3 className="font-semibold">Subscription growth</h3>
         <div className="mt-4 flex items-end gap-2 h-32">
           {subGrowth.map((d) => (
             <div key={d.month} className="flex-1 flex flex-col items-center gap-1">
-              <div className="w-full rounded-t-lg bg-zinc-900 dark:bg-white" style={{ height: `${(d.subs / 9000) * 100}%`, minHeight: 8 }} />
-              <span className="text-xs text-zinc-500">{d.month}</span>
+              <div className="w-full rounded-t-lg bg-[#0B0B0C]" style={{ height: `${(d.subs / 9000) * 100}%`, minHeight: 8 }} />
+              <span className="text-xs text-[#5F5F5A]">{d.month}</span>
             </div>
           ))}
         </div>

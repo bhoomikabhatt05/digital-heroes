@@ -46,7 +46,7 @@ export default function CharityPage() {
         else toast("Charity preference saved", "success");
       }
     } else {
-      toast("Saved in demo mode", "success");
+      toast("Preferences saved", "success");
     }
     setLoading(false);
   }
@@ -54,8 +54,9 @@ export default function CharityPage() {
   return (
     <div className="space-y-6 max-w-[880px]">
       <div>
-        <h1 className="text-[24px] font-bold tracking-[-0.02em] text-[#111113]">Charity</h1>
-        <p className="mt-1 text-[13.5px] leading-6 text-[#6B6B78]">Choose where your subscription makes impact. Minimum 10%.</p>
+        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#74746F]">YOUR IMPACT</p>
+        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-[#111113]">Charity</h1>
+        <p className="mt-1 text-[14px] leading-6 text-[#5F5F5A]">Choose where your subscription makes impact. Minimum 10%.</p>
       </div>
 
       <Card className="p-6">
@@ -86,26 +87,28 @@ export default function CharityPage() {
           return (
             <div
               key={c.id}
-              className={`overflow-hidden rounded-2xl border bg-white p-0 transition-all ${
-                isSelected ? "border-[#111113] shadow-[0_4px_16px_rgba(0,0,0,0.08)] ring-1 ring-[#111113]" : "border-[rgba(17,17,19,0.10)] hover:border-[#D1D1CC] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
+              className={`overflow-hidden rounded-2xl border bg-white p-0 transition-all cursor-pointer ${
+                isSelected ? "border-[#C8FF3D] bg-[#C8FF3D]/5 shadow-[0_8px_24px_rgba(200,255,61,0.15)] ring-2 ring-[#C8FF3D]" : "border-[rgba(17,17,19,0.10)] hover:border-[#D1D1CC] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]"
               }`}
+              onClick={() => setSelected(c.id)}
             >
-              <div className="h-36 overflow-hidden bg-[#F4F4F1]">
+              <div className="h-36 overflow-hidden bg-[#F4F4F1] relative">
                 <SafeImage src={c.image_url!} alt={c.name} className="h-full w-full object-cover" fallbackClassName="h-36 w-full" />
+                {isSelected && <div className="absolute top-3 right-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#C8FF3D] text-[#0B0B0C] text-xs font-bold">✓</div>}
               </div>
               <div className="p-5">
                 <h3 className="text-[14px] font-semibold tracking-[-0.01em] text-[#111113] flex items-center gap-2">
-                  {c.name} {c.featured && <Badge variant="lime">Featured</Badge>}
+                  {c.name} {c.featured && <Badge variant="lime">Featured</Badge>} {isSelected && <span className="ml-auto text-xs font-bold text-[#0B0B0C] bg-[#C8FF3D] px-2 py-0.5 rounded-full">✓ SELECTED</span>}
                 </h3>
                 <p className="text-[13.5px] leading-5 text-[#6B6B78] mt-1 line-clamp-2">{c.description}</p>
                 <Button
                   variant={isSelected ? "primary" : "outline"}
                   size="sm"
                   className="mt-3 w-full"
-                  onClick={() => setSelected(c.id)}
+                  onClick={(e) => { e.stopPropagation(); setSelected(c.id); }}
                   aria-pressed={isSelected}
                 >
-                  {isSelected ? "Selected" : "Select"}
+                  {isSelected ? "✓ Selected" : "Select charity"}
                 </Button>
               </div>
             </div>

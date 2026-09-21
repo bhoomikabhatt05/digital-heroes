@@ -67,9 +67,9 @@ export default function Pricing() {
         <DarkCard className="mt-8 max-w-[760px] mx-auto p-6 flex gap-4">
           <div className="hidden sm:flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white text-sm border border-white/15">◉</div>
           <div>
-            <p className="text-[13.5px] font-semibold tracking-[-0.01em] text-white">Stripe test mode</p>
+            <p className="text-[13.5px] font-semibold tracking-[-0.01em] text-white">Secure checkout</p>
             <p className="mt-1 text-[13.5px] leading-6 text-white/60">
-              Use card <span className="font-mono text-white">4242 4242 4242 4242</span>, any future date, any CVC. No real charges. If Stripe env is missing, checkout runs in graceful demo mode.
+              PCI-compliant checkout via Stripe. Subscription status updates automatically after payment.
             </p>
           </div>
         </DarkCard>

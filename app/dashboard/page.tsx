@@ -37,10 +37,11 @@ export default async function DashboardPage() {
   const prize = nextDraw?.prize_pool ?? mockStats.prizePool;
   const selectedCharity = charities.find((c) => c.id === profile?.charity_id) ?? charities[0];
   const scoreValues = scores.map((s: any) => s.score);
+  const isSubscribed = subscription?.status === "active";
 
   return (
     <div className="space-y-6">
-      {/* Command Center Header */}
+      {/* Command Center Header — user personal */}
       <div className="rounded-3xl border border-white/10 bg-[#0B0B0C] text-white p-6 md:p-7 overflow-hidden relative">
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)", backgroundSize: "48px 48px" }} aria-hidden />
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[#C8FF3D]/10 blur-3xl" aria-hidden />
@@ -54,10 +55,10 @@ export default async function DashboardPage() {
           <div className="rounded-2xl border border-white/10 bg-[#131518] p-4">
             <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Subscription</p>
             <p className="mt-1 text-sm font-bold text-white flex items-center gap-2">
-              <span className={`h-2 w-2 rounded-full ${subscription?.status === "active" ? "bg-[#C8FF3D]" : "bg-[#FF8A5B]"}`} />
-              {(subscription?.status ?? "inactive (demo)").toUpperCase()}
+              <span className={`h-2 w-2 rounded-full ${isSubscribed ? "bg-[#C8FF3D]" : "bg-[#FF8A5B]"}`} />
+              {isSubscribed ? "ACTIVE" : "NOT ACTIVE"}
             </p>
-            <p className="text-xs text-[#A5A5A0] mt-1">{subscription?.plan ?? "monthly"}</p>
+            <p className="text-xs text-[#A5A5A0] mt-1">{isSubscribed ? (subscription?.plan ?? "monthly") : "Choose a plan →"}</p>
           </div>
           <div className="rounded-2xl border border-white/10 bg-[#131518] p-4">
             <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Next draw</p>
