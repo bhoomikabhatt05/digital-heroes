@@ -26,7 +26,7 @@ export default async function DrawsPage() {
   const daysLeft = Math.max(0, Math.ceil((new Date(nextDraw.draw_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
 
   return (
-    <div className="space-y-6 max-w-[880px]">
+    <div className="space-y-6 w-full">
       <div>
         <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">MONTHLY EVENT — DRAW SYSTEM</p>
         <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-white">Draws</h1>

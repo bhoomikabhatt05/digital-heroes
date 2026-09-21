@@ -113,7 +113,7 @@ export default function ScoresPage() {
   const sorted = sortScoresNewest(scores);
 
   return (
-    <div className="space-y-6 max-w-[880px]">
+    <div className="space-y-6 w-full">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">PERFORMANCE / SCORE ORBIT</p>

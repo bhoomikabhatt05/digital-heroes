@@ -52,7 +52,7 @@ export default function CharityPage() {
   }
 
   return (
-    <div className="space-y-6 max-w-[880px]">
+    <div className="space-y-6 w-full">
       <div>
         <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">YOUR IMPACT</p>
         <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-white">Charity</h1>
