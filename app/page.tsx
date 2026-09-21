@@ -1,255 +1,202 @@
 import Link from "next/link";
 import { Navbar, Footer } from "@/components/landing/navbar";
 import { Button } from "@/components/ui/button";
-import { mockCharities, mockStats } from "@/lib/mock-data";
-import { ImpactOrbit, LiveSystemBar } from "@/components/art/impact-orbit";
-import { BackgroundSystem } from "@/components/art/background-system";
-import { SafeImage } from "@/components/ui/safe-image";
+import { mockCharities } from "@/lib/mock-data";
 import { createClient } from "@/lib/supabase/server";
-import { PageEnter, Reveal, CountUp } from "@/components/motion";
+import { ScoreOrbit } from "@/components/art/impact-orbit";
+
+function HeroOrbit() {
+  return (
+    <div className="relative w-full max-w-[420px] mx-auto aspect-square">
+      <div className="absolute inset-0 rounded-full border border-white/[0.06]" style={{ transform: "scale(0.92)" }} aria-hidden />
+      <div className="absolute inset-0 rounded-full border border-white/[0.04] orbit-path" style={{ transform: "scale(0.68)" }} aria-hidden />
+      {/* ambient lime glow */}
+      <div className="absolute inset-0 rounded-full hero-glow opacity-30" style={{ background: "radial-gradient(circle, rgba(200,255,61,0.08) 0%, transparent 62%)" }} aria-hidden />
+      {/* center */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center rounded-full bg-[#131518] border border-white/10 w-[132px] h-[132px] md:w-[148px] md:h-[148px]">
+        <p className="text-[11px] tracking-[0.10em] uppercase text-[#A5A5A0]">Impact Orbit</p>
+        <div className="mt-1 h-1 w-6 bg-[#C8FF3D] rounded-full" />
+      </div>
+      {/* nodes */}
+      <div className="absolute left-[6%] top-[18%] flex flex-col items-center gap-1.5 node-in" style={{ animationDelay: "0ms" }}>
+        <div className="rounded-full bg-white text-[#0B0B0C] w-[64px] h-[64px] flex flex-col items-center justify-center border border-white">
+          <span className="text-[10px] tracking-[0.08em] uppercase text-[#5F5F5A]">Score</span>
+          <span className="text-[11px] font-bold">28</span>
+          <span className="text-[10px] text-[#5F5F5A]">Stableford</span>
+        </div>
+        <span className="text-[10px] tracking-wide text-[#A5A5A0]">LATEST SCORE</span>
+      </div>
+      <div className="absolute right-[8%] top-[20%] flex flex-col items-center gap-1.5 node-in" style={{ animationDelay: "120ms" }}>
+        <div className="rounded-full bg-[#C8FF3D] text-[#0B0B0C] w-[64px] h-[64px] flex flex-col items-center justify-center font-bold">
+          <span className="text-[11px]">10%</span>
+          <span className="text-[10px]">→ Charity</span>
+        </div>
+        <span className="text-[10px] tracking-wide text-[#A5A5A0]">IMPACT</span>
+      </div>
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-[14%] flex flex-col items-center gap-1.5 node-in" style={{ animationDelay: "240ms" }}>
+        <div className="rounded-2xl bg-[#131518] border border-white/10 px-3 py-2 flex gap-1.5">
+          {[7,14,23,31,42].map(n => <span key={n} className="w-6 h-6 rounded-full bg-white text-[#0B0B0C] flex items-center justify-center text-[11px] font-bold">{n}</span>)}
+        </div>
+        <span className="text-[10px] tracking-wide text-[#A5A5A0]">NEXT DRAW</span>
+      </div>
+      {/* thin orbital paths */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.06]" viewBox="0 0 400 400" fill="none" aria-hidden>
+        <ellipse cx="200" cy="200" rx="150" ry="110" stroke="white" strokeWidth="1" />
+        <ellipse cx="200" cy="200" rx="92" ry="92" stroke="white" strokeWidth="1" />
+      </svg>
+    </div>
+  );
+}
 
 export default async function HomePage() {
   let charities = mockCharities;
-  let stats = mockStats;
   try {
     const supabase = await createClient();
     if (supabase) {
       const { data } = await supabase.from("charities").select("*").eq("active", true).order("featured", { ascending: false });
       if (data && data.length) charities = data as unknown as typeof mockCharities;
-      const { count: userCount } = await supabase.from("profiles").select("*", { count: "exact", head: true });
-      const { count: subCount } = await supabase.from("subscriptions").select("*", { count: "exact", head: true }).eq("status", "active");
-      if (userCount !== null) stats = { ...stats, totalUsers: userCount };
-      if (subCount !== null) stats = { ...stats, activeSubscribers: subCount };
     }
   } catch {}
-  const featured = charities.filter((c) => c.featured).slice(0, 3);
+  const featured = charities.filter(c => c.featured).slice(0, 3);
   return (
-    <div className="min-h-screen flex flex-col bg-[#070708] text-white relative overflow-hidden">
-      <BackgroundSystem />
+    <div className="min-h-screen flex flex-col bg-[#0B0B0C] text-white relative overflow-hidden">
+      {/* hero background - subtle moving lime */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <div className="absolute -top-[18%] -right-[10%] w-[680px] h-[420px] rounded-full opacity-[0.06] hero-glow" style={{ background: "radial-gradient(circle, rgba(200,255,61,0.12) 0%, transparent 68%)" }} />
+      </div>
       <Navbar />
-      <PageEnter>
-      {/* HERO — EXPERIENCE */}
-      <section className="relative mx-auto w-full max-w-[1160px] px-6 pt-8 md:pt-12 pb-10 hero-mouse rounded-3xl">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-10 items-start">
-          <Reveal className="relative pt-2">
-            <p className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[#A5A5A0] flex items-center gap-2">
-              <span className="h-1 w-1 rounded-full bg-[#C8FF3D] signal-core" />
-              DIGITAL HEROES / IMPACT ORBIT
-              <span className="hidden md:inline text-[#74746F]">— FEEL, NOT FAIRWAY</span>
-            </p>
-            <h1 className="mt-4 text-[52px] md:text-[88px] font-black tracking-[-0.05em] leading-[0.82] text-white">
-              PLAY
-              <br />
-              FOR
-              <br />
-              <span className="text-[#C8FF3D]">MORE.</span>
+
+      {/* HERO — Cinematic */}
+      <section className="relative mx-auto w-full max-w-[1160px] px-6 pt-10 md:pt-14 pb-10">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <h1 className="text-[44px] md:text-[72px] font-black tracking-[-0.05em] leading-[0.88] text-white">
+              PLAY YOUR<br />ROUND.<br /><span className="text-[#C8FF3D]">MOVE SOMETHING.</span>
             </h1>
-            <p className="mt-6 text-[15px] md:text-[16px] leading-7 text-[#A5A5A0] max-w-[420px]">
-              Track your performance. Enter the monthly draw. Every subscription fuels charitable impact. One ecosystem —
-              <span className="text-white"> PLAY → WIN → GIVE BACK.</span>
-            </p>
+            <p className="mt-6 text-[15px] leading-7 text-[#A5A5A0] max-w-[420px]">Your scores create your chance to win.<br />Your subscription creates real-world impact.</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/signup" className="group">
-                <Button size="lg" className="h-12 px-7 btn-lift">JOIN HEROES <span aria-hidden className="ml-2 btn-arrow">→</span></Button>
-              </Link>
-              <Link href="/how-it-works">
-                <Button variant="secondary" size="lg" className="h-12 px-7 btn-lift">How it works</Button>
-              </Link>
+              <Link href="/signup"><Button size="lg" className="h-12 px-7 btn-lift">START YOUR JOURNEY <span className="ml-2 btn-arrow">→</span></Button></Link>
+              <Link href="/how-it-works"><Button variant="secondary" size="lg" className="h-12 px-7">SEE HOW IT WORKS ↓</Button></Link>
             </div>
-            <div className="mt-10 hidden md:flex items-center gap-3 text-[11px] tracking-[0.08em] uppercase text-[#74746F]">
-              <span>PLAY</span><span className="h-px w-8 bg-white/10" /><span>PERFORM</span><span className="h-px w-8 bg-white/10" /><span>DRAW</span><span className="h-px w-8 bg-[#C8FF3D]/40" /><span className="text-[#C8FF3D]">IMPACT</span>
-            </div>
-          </Reveal>
-
-          <Reveal delay={140} className="relative space-y-5">
-            <div className="rounded-3xl border border-white/10 bg-[#131518]/80 backdrop-blur p-6 md:p-7 overflow-hidden relative hero-mouse">
-              <div className="hairline" aria-hidden />
-              <div className="absolute inset-0 opacity-20 hero-glow" style={{ background: "radial-gradient(600px circle at 80% 0%, rgba(200,255,61,0.15), transparent 70%)" }} aria-hidden />
-              <div className="relative grid md:grid-cols-[1.1fr_0.9fr] gap-6 items-center">
-                <ImpactOrbit className="w-full max-w-[280px] mx-auto" />
-                <div className="space-y-3">
-                  <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#A5A5A0]">PLAY → WIN → IMPACT</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-3 text-sm"><span className="h-2 w-2 rounded-full bg-[#C8FF3D] shadow-[0_0_8px_rgba(200,255,61,0.7)] signal-core" /><span className="text-white">Submit performance</span><span className="ml-auto text-[#74746F] text-xs">01</span></div>
-                    <div className="h-px bg-white/10 ml-1" />
-                    <div className="flex items-center gap-3 text-sm"><span className="h-2 w-2 rounded-full bg-white/30" /><span className="text-[#A5A5A0]">Monthly draw • 5 numbers</span><span className="ml-auto text-[#74746F] text-xs">02</span></div>
-                    <div className="h-px bg-white/10 ml-1" />
-                    <div className="flex items-center gap-3 text-sm"><span className="h-2 w-2 rounded-full bg-[#FF8A5B] signal-core" /><span className="text-white">Charitable impact</span><span className="ml-auto text-[#74746F] text-xs">03</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <LiveSystemBar stats={{ activeHeroes: stats.activeSubscribers, prizePool: stats.prizePool, toCharity: stats.charityTotal, nextDrawDays: 18 }} />
-          </Reveal>
+          </div>
+          <HeroOrbit />
         </div>
       </section>
-      </PageEnter>
 
-      {/* CONNECTED JOURNEY — reveals */}
-      <Reveal className="relative bg-[#F3F2ED] text-[#111113] py-14 md:py-16">
-        <div className="mx-auto max-w-[1160px] px-6">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#74746F]">SYSTEM JOURNEY</p>
-              <h2 className="mt-2 text-[28px] md:text-[36px] font-bold tracking-[-0.03em]">One connected ecosystem</h2>
-            </div>
-            <p className="max-w-[420px] text-[14px] leading-6 text-[#5F5F5A]">Understand the product in seconds. Your score becomes your entry. Your subscription becomes impact.</p>
-          </div>
-          <div className="mt-10 relative">
-            <div className="hidden md:block absolute top-[28px] left-[80px] right-[80px] h-px bg-[rgba(17,17,19,0.10)]" aria-hidden />
-            <div className="hidden md:block absolute top-[28px] left-[80px] w-[33%] h-px bg-[#C8FF3D] opacity-60 orbit-path" aria-hidden />
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                { n: "01", label: "PLAY", title: "Submit your performance", desc: "Log Stableford 1–45. One per date. Five rolling — oldest drops.", color: "#C8FF3D" },
-                { n: "02", label: "WIN", title: "Monthly draw. Multiple tiers.", desc: "5 numbers. 40% / 35% / 25% distribution. Jackpot rolls if unclaimed.", color: "#61E7FF" },
-                { n: "03", label: "GIVE BACK", title: "Your subscription creates impact", desc: "Choose charity. 10%+ flows through. Verified and transparent.", color: "#FF8A5B" },
-              ].map((s, idx) => (
-                <Reveal key={s.n} delay={idx * 80} className="relative premium-card rounded-2xl p-1">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#0B0B0C] text-white text-xs font-bold border border-white/5 relative node-in" style={{ animationDelay: `${idx * 120}ms` }}>
-                      {s.n}
-                      <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full border-2 border-[#F3F2ED] signal-core" style={{ background: s.color } as React.CSSProperties} />
-                    </div>
-                    <div className="h-px flex-1 bg-[rgba(17,17,19,0.08)] md:hidden" />
-                  </div>
-                  <p className="mt-4 text-[11px] font-semibold tracking-[0.12em] uppercase" style={{ color: s.color === "#C8FF3D" ? "#111113" : s.color }}>{s.label}</p>
-                  <h3 className="mt-1 text-[16px] font-semibold tracking-[-0.01em] text-[#111113]">{s.title}</h3>
-                  <p className="mt-2 text-[13.5px] leading-6 text-[#5F5F5A]">{s.desc}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Reveal>
-
-      {/* HOW IT WORKS — 5 step premium */}
-      <section className="relative bg-[#0B0B0C] py-14 md:py-16 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "48px 48px" }} aria-hidden />
-        <div className="absolute -top-32 right-0 h-64 w-64 rounded-full bg-[#C8FF3D]/10 blur-3xl" aria-hidden />
-        <div className="mx-auto max-w-[1160px] px-6 relative">
-          <Reveal>
-            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#C8FF3D]">HOW IT WORKS</p>
-            <h2 className="mt-2 text-[28px] md:text-[36px] font-bold tracking-[-0.03em] text-white">Your game. Your impact. Your chance to win.</h2>
-            <p className="mt-3 text-[14px] leading-6 text-[#A5A5A0] max-w-[560px]">A simple monthly journey that connects your scores, your charity and the draw.</p>
-          </Reveal>
-          <div className="mt-10 grid md:grid-cols-5 gap-5">
+      {/* ONE ROUND. THREE OUTCOMES. */}
+      <section className="relative bg-[#F3F2ED] text-[#111113] py-14 md:py-20">
+        <div className="mx-auto max-w-[1160px] px-6 text-center">
+          <h2 className="text-[28px] md:text-[44px] font-black tracking-[-0.04em] leading-[0.9]">ONE ROUND.<br />THREE OUTCOMES.</h2>
+          <div className="mt-12 grid md:grid-cols-3 gap-8 text-left max-w-[880px] mx-auto">
             {[
-              { n: "01", title: "CHOOSE YOUR IMPACT", desc: "Choose a charity and decide what percentage of your subscription contributes to it.", icon: "♥" },
-              { n: "02", title: "TRACK YOUR GAME", desc: "Add your Stableford score after each round. Your latest 5 scores are kept in your Score Orbit.", icon: "◉" },
-              { n: "03", title: "ENTER THE DRAW", desc: "Your 5-number entry is automatically generated for each active draw.", icon: "✦" },
-              { n: "04", title: "MATCH & WIN", desc: "Match 3, 4 or 5 numbers to receive a share of the prize pool.", icon: "🏆" },
-              { n: "05", title: "VERIFY YOUR WIN", desc: "If you win, upload your qualifying score proof for admin verification before payment.", icon: "✓" },
-            ].map((s, idx) => (
-              <Reveal key={s.n} delay={idx * 60} className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-5 hover:bg-white/[0.06] transition-colors">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C8FF3D] text-[#0B0B0C] text-xs font-bold">{s.icon}</div>
-                <p className="mt-4 text-[11px] font-semibold tracking-[0.08em] uppercase text-[#C8FF3D]">{s.n}</p>
-                <h3 className="mt-1 text-[13px] font-semibold tracking-[-0.01em] text-white">{s.title}</h3>
-                <p className="mt-2 text-[13px] leading-5 text-[#A5A5A0]">{s.desc}</p>
-              </Reveal>
+              { n: "01", t: "TRACK", d: "Your game becomes your entry." },
+              { n: "02", t: "IMPACT", d: "Your subscription supports a cause you choose." },
+              { n: "03", t: "WIN", d: "Match your numbers. Share the prize." },
+            ].map((s, i) => (
+              <div key={s.n} className="relative">
+                <p className="text-[11px] tracking-[0.12em] uppercase text-[#A5A5A0]">{s.n}</p>
+                <h3 className="mt-2 text-[18px] font-bold tracking-[-0.02em]">{s.t}</h3>
+                <p className="mt-2 text-[13.5px] leading-6 text-[#5F5F5A]">{s.d}</p>
+                {i < 2 && <div className="hidden md:block absolute top-6 -right-4 h-px w-8 bg-[rgba(17,17,19,0.10)]" aria-hidden />}
+              </div>
             ))}
           </div>
-          <Reveal delay={120} className="mt-10 flex flex-wrap gap-3">
-            <Link href="/signup"><Button size="lg" className="h-12 px-7 btn-lift">START YOUR JOURNEY <span className="ml-2 btn-arrow">→</span></Button></Link>
-            <Link href="/how-it-works"><Button variant="secondary" size="lg" className="h-12 px-7">SEE HOW IT WORKS</Button></Link>
-          </Reveal>
         </div>
       </section>
 
-      {/* IMPACT ATLAS — charity emotional center with count-up */}
-      <section className="relative bg-[#0B0B0C] py-14 md:py-16 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)", backgroundSize: "48px 48px" }} aria-hidden />
+      {/* WHERE DOES YOUR SUBSCRIPTION GO? */}
+      <section className="relative bg-[#0B0B0C] py-14 md:py-20 overflow-hidden">
         <div className="mx-auto max-w-[1160px] px-6 relative">
-          <Reveal className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#C8FF3D]">IMPACT ATLAS</p>
-              <h2 className="mt-2 text-[26px] md:text-[32px] font-bold tracking-[-0.03em] text-white">Where your subscription creates impact</h2>
+          <p className="text-[11px] tracking-[0.12em] uppercase text-[#C8FF3D]">WHERE DOES YOUR SUBSCRIPTION GO?</p>
+          <div className="mt-6 grid md:grid-cols-[1.2fr_0.8fr] gap-8 items-center">
+            <div className="flex items-center gap-6">
+              <div className="text-center">
+                <p className="text-[56px] md:text-[72px] font-black tracking-[-0.04em] text-white leading-none">10%</p>
+                <p className="text-[11px] tracking-[0.08em] uppercase text-[#A5A5A0]">OF YOUR SUBSCRIPTION</p>
+              </div>
+              <div className="hidden md:flex flex-col items-center gap-2 text-[#C8FF3D]">
+                <span className="h-8 w-px bg-[#C8FF3D]/40" />
+                <span>↓</span>
+                <span className="h-8 w-px bg-[#C8FF3D]/40" />
+              </div>
+              <div className="rounded-2xl bg-[#131518] border border-white/10 px-5 py-4">
+                <p className="text-[11px] tracking-[0.08em] uppercase text-[#A5A5A0]">→ Clean Water Initiative</p>
+                <p className="mt-1 text-sm font-semibold text-white">Verified charity partner</p>
+                <p className="text-xs text-[#A5A5A0] mt-1">Featured • 10%+ impact</p>
+              </div>
             </div>
-            <Link href="/charities" className="text-[13px] font-medium text-white/70 hover:text-white btn-hover">View all charities <span aria-hidden className="btn-arrow">→</span></Link>
-          </Reveal>
-
-          <div className="mt-8 grid md:grid-cols-3 gap-5">
-            {featured.map((c) => (
-              <Reveal key={c.id} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#131518] premium-card-dark">
-                <Link href={`/charities/${c.slug}`} className="block">
-                  <div className="h-[220px] overflow-hidden relative">
-                    <SafeImage src={c.image_url} alt={c.name} className="h-full w-full object-cover charity-image" fallbackClassName="h-[220px] w-full" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <div className="absolute top-3 left-3 flex gap-2">
-                      <span className="rounded-full bg-[#C8FF3D] px-2.5 py-1 text-[11px] font-semibold text-[#0B0B0C]">Featured</span>
-                      <span className="rounded-full bg-black/40 backdrop-blur px-2.5 py-1 text-[11px] font-medium text-white border border-white/15">10%+ to charity</span>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <p className="text-[11px] tracking-[0.08em] uppercase text-white/60">{c.slug.replace(/-/g, " ").toUpperCase()}</p>
-                      <h3 className="mt-1 text-[16px] font-semibold tracking-[-0.02em] text-white">{c.name}</h3>
-                    </div>
-                  </div>
-                  <div className="p-4 flex items-center justify-between">
-                    <div>
-                      <p className="text-[13.5px] font-medium text-[#A5A5A0] line-clamp-1">{c.description?.slice(0, 48) ?? "Verified impact partner"}</p>
-                      <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Verified partner</p>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-[13px] font-medium text-[#C8FF3D] btn-arrow">Explore <span aria-hidden>→</span></span>
-                  </div>
-                  <div className="h-1 bg-[#C8FF3D]/0 group-hover:bg-[#C8FF3D] transition-colors" aria-hidden />
-                </Link>
-              </Reveal>
-            ))}
+            <p className="text-[14px] leading-6 text-[#A5A5A0] max-w-[360px]">Choose a charity at signup and decide how much of your subscription you want to contribute.</p>
           </div>
-          <Reveal delay={140} className="mt-10 grid grid-cols-3 gap-6 border-t border-white/10 pt-6">
-            <div>
-              <p className="text-[28px] font-bold tracking-[-0.03em] text-white">£<CountUp value={stats.charityTotal} /></p>
-              <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Total to charity</p>
-            </div>
-            <div>
-              <p className="text-[28px] font-bold tracking-[-0.03em] text-white"><CountUp value={stats.activeSubscribers} /></p>
-              <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Active heroes</p>
-            </div>
-            <div>
-              <p className="text-[28px] font-bold tracking-[-0.03em] text-[#C8FF3D]">£<CountUp value={stats.prizePool} /></p>
-              <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Prize pool · rolls if unclaimed</p>
-            </div>
-          </Reveal>
         </div>
       </section>
 
-      {/* PRICING — contribution visible */}
-      <Reveal className="bg-[#F3F2ED] py-14 md:py-16">
-        <div className="mx-auto max-w-[1160px] px-6">
-          <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#74746F]">SUBSCRIBE → PLAY → WIN → GIVE BACK</p>
-          <div className="mt-3 grid md:grid-cols-2 gap-8 items-start">
-            <div>
-              <h2 className="text-[28px] md:text-[32px] font-bold tracking-[-0.03em] text-[#111113]">Subscribe. Play. Create impact.</h2>
-              <p className="mt-3 text-[14px] leading-6 text-[#5F5F5A] max-w-[480px]">Your subscription is the entry. Monthly or yearly — every plan enters the draw and funds your chosen charity.</p>
-              <div className="mt-6 flex items-center gap-4">
-                <div className="h-px w-12 bg-[#C8FF3D]" />
-                <p className="text-[11px] tracking-[0.08em] uppercase text-[#74746F]">Actual configured values • No hidden fees</p>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-2xl border border-[rgba(17,17,19,0.10)] bg-white p-5 premium-card">
-                <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#74746F]">Monthly</p>
-                <p className="mt-2 text-[32px] font-bold tracking-[-0.03em] text-[#111113]">£20<span className="text-[14px] font-normal text-[#5F5F5A]">/mo</span></p>
-                <div className="mt-3 h-1.5 rounded-full bg-[rgba(17,17,19,0.08)] overflow-hidden">
-                  <div className="h-full w-[10%] bg-[#C8FF3D]" />
-                </div>
-                <p className="mt-2 text-[11px] text-[#5F5F5A]">10% → £2.00/mo to charity</p>
-                <Link href="/signup" className="mt-4 block"><Button variant="outline" className="w-full btn-lift">JOIN HEROES</Button></Link>
-              </div>
-              <div className="rounded-2xl border border-[#0B0B0C] bg-[#0B0B0C] p-5 text-white relative overflow-hidden premium-card-dark hero-mouse">
-                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#C8FF3D]/10 blur-2xl hero-glow" aria-hidden />
-                <span className="inline-flex rounded-full bg-[#C8FF3D] px-2.5 py-1 text-[11px] font-semibold text-[#0B0B0C]">Save 17%</span>
-                <p className="mt-3 text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">Yearly</p>
-                <p className="text-[32px] font-bold tracking-[-0.03em]">£200<span className="text-[14px] font-normal text-[#A5A5A0]">/yr</span></p>
-                <div className="mt-3 h-1.5 rounded-full bg-white/10 overflow-hidden">
-                  <div className="h-full w-[10%] bg-[#C8FF3D]" />
-                </div>
-                <p className="mt-2 text-[11px] text-[#A5A5A0]">10% → £20/yr to charity</p>
-                <Link href="/signup" className="mt-4 block"><Button className="w-full btn-lift">JOIN HEROES <span className="btn-arrow">→</span></Button></Link>
-              </div>
+      {/* YOUR GAME. IN ORBIT. */}
+      <section className="relative bg-[#F3F2ED] py-14 md:py-16">
+        <div className="mx-auto max-w-[1160px] px-6 grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 className="text-[28px] md:text-[36px] font-black tracking-[-0.03em] text-[#111113]">YOUR GAME.<br />IN ORBIT.</h2>
+            <p className="mt-3 text-[14px] leading-6 text-[#5F5F5A]">Your latest five Stableford scores, kept in one place.</p>
+            <div className="mt-4 flex gap-2 text-[11px] tracking-wide">
+              <span className="rounded-full border border-[rgba(17,17,19,0.10)] px-3 py-1">STABLEFORD 1–45</span>
+              <span className="rounded-full bg-[#C8FF3D] px-3 py-1 font-semibold">LATEST 5 RETAINED</span>
             </div>
           </div>
+          <div className="rounded-3xl border border-[rgba(17,17,19,0.08)] bg-white p-4">
+            <ScoreOrbit scores={[28,31,23,14,7]} />
+          </div>
         </div>
-      </Reveal>
+      </section>
+
+      {/* HOW YOU WIN */}
+      <section className="relative bg-white py-12">
+        <div className="mx-auto max-w-[880px] px-6">
+          <div className="hidden md:flex items-center justify-between text-[11px] tracking-[0.12em] uppercase text-[#A5A5A0]">
+            <span>01 PLAY</span><span className="h-px flex-1 mx-4 bg-[rgba(17,17,19,0.08)]" /><span>02 MATCH</span><span className="h-px flex-1 mx-4 bg-[rgba(17,17,19,0.08)]" /><span>03 WIN</span>
+          </div>
+          <div className="mt-4 grid md:grid-cols-3 gap-6">
+            <div><h3 className="font-bold">01 — PLAY</h3><p className="text-sm text-[#5F5F5A] mt-1">Add your Stableford score.</p></div>
+            <div><h3 className="font-bold">02 — MATCH</h3><p className="text-sm text-[#5F5F5A] mt-1">Your five-number entry is generated automatically.</p></div>
+            <div><h3 className="font-bold">03 — WIN</h3><p className="text-sm text-[#5F5F5A] mt-1">Match 3, 4 or 5 numbers and follow verification if you win.</p></div>
+          </div>
+        </div>
+      </section>
+
+      {/* DRAW VISUAL */}
+      <section className="relative bg-[#0B0B0C] py-12">
+        <div className="mx-auto max-w-[880px] px-6 text-center">
+          <div className="flex justify-center gap-2">
+            {[7,14,23,31,42].map(n => <span key={n} className="w-10 h-10 rounded-full bg-white text-[#0B0B0C] flex items-center justify-center font-bold text-sm">{n}</span>)}
+          </div>
+          <div className="mt-6 grid grid-cols-3 gap-4 max-w-[520px] mx-auto">
+            <div className="rounded-2xl bg-white text-[#0B0B0C] p-4"><p className="font-black">5 MATCH</p><p className="text-sm text-[#5F5F5A]">40%</p></div>
+            <div className="rounded-2xl bg-[#131518] border border-white/10 text-white p-4"><p className="font-bold">4 MATCH</p><p className="text-sm text-[#A5A5A0]">35%</p></div>
+            <div className="rounded-2xl bg-[#131518] border border-white/10 text-white p-4"><p className="font-bold">3 MATCH</p><p className="text-sm text-[#A5A5A0]">25%</p></div>
+          </div>
+        </div>
+      </section>
+
+      {/* IMPACT ATLAS preview */}
+      <section className="relative bg-[#0B0B0C] py-12">
+        <div className="mx-auto max-w-[1160px] px-6">
+          <div className="grid md:grid-cols-3 gap-5">
+            {featured.slice(0,3).map(c => (
+              <div key={c.id} className="rounded-2xl overflow-hidden border border-white/10 bg-[#131518]">
+                <div className="h-[180px] bg-[#1a1a1a] flex items-center justify-center text-white/30 text-xs">Image: {c.name}</div>
+                <div className="p-4"><p className="font-semibold text-white text-sm">{c.name}</p><p className="text-xs text-[#A5A5A0] line-clamp-2">{c.description}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="relative bg-[#0B0B0C] py-20 md:py-28 border-t border-white/5">
+        <div className="mx-auto max-w-[1160px] px-6 text-center">
+          <h2 className="text-[36px] md:text-[56px] font-black tracking-[-0.04em] leading-[0.9] text-white">YOUR NEXT ROUND<br />CAN DO MORE.</h2>
+          <p className="mt-4 text-[14px] leading-6 text-[#A5A5A0]">Track your game. Support a cause. Take your chance.</p>
+          <Link href="/signup" className="mt-8 inline-block"><Button size="lg" className="h-12 px-8">START YOUR JOURNEY <span className="ml-2">→</span></Button></Link>
+        </div>
+      </section>
 
       <Footer />
     </div>
