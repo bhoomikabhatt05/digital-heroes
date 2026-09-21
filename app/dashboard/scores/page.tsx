@@ -116,11 +116,11 @@ export default function ScoresPage() {
     <div className="space-y-6 max-w-[880px]">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#74746F]">PERFORMANCE / SCORE ORBIT</p>
-          <h1 className="mt-1 text-[24px] font-bold tracking-[-0.02em] text-[#111113]">Scores</h1>
-          <p className="mt-1 text-[13.5px] leading-6 text-[#5F5F5A]">Stableford 1–45 • One per date • Latest 5 retained</p>
+          <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">PERFORMANCE / SCORE ORBIT</p>
+          <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-white">Scores</h1>
+          <p className="mt-1 text-[14px] leading-6 text-[#A5A5A0]">Stableford 1–45 • One per date • Latest 5 retained</p>
         </div>
-        <Badge variant="outline" className="h-7 px-3 text-xs">Avg: {avg}</Badge>
+        <Badge variant="dark" className="h-7 px-3 text-xs border-white/15">Avg: {avg}</Badge>
       </div>
 
       <ScoreOrbit scores={sorted.map((s) => s.score)} />

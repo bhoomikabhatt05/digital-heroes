@@ -174,9 +174,9 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 max-w-[640px]">
       <div>
-        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#74746F]">ACCOUNT</p>
-        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-[#111113]">Settings</h1>
-        <p className="mt-1 text-[14px] leading-6 text-[#5F5F5A]">Manage your profile and subscription.</p>
+        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">ACCOUNT</p>
+        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-white">Settings</h1>
+        <p className="mt-1 text-[14px] leading-6 text-[#A5A5A0]">Manage your profile and subscription.</p>
       </div>
 
       <Card className="p-6">

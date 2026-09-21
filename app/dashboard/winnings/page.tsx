@@ -58,9 +58,9 @@ export default function WinningsPage() {
   return (
     <div className="space-y-6 max-w-[880px]">
       <div>
-        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#74746F]">REWARDS / VERIFICATION</p>
-        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-[#111113]">Winnings</h1>
-        <p className="mt-1 text-[14px] leading-6 text-[#5F5F5A]">Track your wins and verification status.</p>
+        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">REWARDS / VERIFICATION</p>
+        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-white">Winnings</h1>
+        <p className="mt-1 text-[14px] leading-6 text-[#A5A5A0]">Track your wins and verification status.</p>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">

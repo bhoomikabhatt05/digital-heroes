@@ -54,9 +54,9 @@ export default function CharityPage() {
   return (
     <div className="space-y-6 max-w-[880px]">
       <div>
-        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#74746F]">YOUR IMPACT</p>
-        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-[#111113]">Charity</h1>
-        <p className="mt-1 text-[14px] leading-6 text-[#5F5F5A]">Choose where your subscription makes impact. Minimum 10%.</p>
+        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">YOUR IMPACT</p>
+        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-white">Charity</h1>
+        <p className="mt-1 text-[14px] leading-6 text-[#A5A5A0]">Choose where your subscription makes impact. Minimum 10%.</p>
       </div>
 
       <Card className="p-6">

@@ -28,8 +28,9 @@ export default async function DrawsPage() {
   return (
     <div className="space-y-6 max-w-[880px]">
       <div>
-        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#74746F]">MONTHLY EVENT — DRAW SYSTEM</p>
-        <h1 className="mt-1 text-[24px] font-bold tracking-[-0.02em] text-[#111113]">Draws</h1>
+        <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">MONTHLY EVENT — DRAW SYSTEM</p>
+        <h1 className="mt-1 text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-white">Draws</h1>
+        <p className="mt-1 text-[14px] leading-6 text-[#A5A5A0]">Monthly draw • 5 numbers • 40/35/25 tiers • Jackpot rolls over</p>
       </div>
 
       {/* Next draw hero event */}
