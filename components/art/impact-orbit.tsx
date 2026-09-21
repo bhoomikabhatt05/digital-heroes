@@ -113,17 +113,17 @@ export function ScoreOrbit({ scores }: { scores: number[] }) {
             style={{ left: `${c.x}%`, top: `${c.y}%` }}
           >
             <div className="relative flex items-center justify-center">
-              {/* thin outer ring — subtle */}
+              {/* thin outer ring — subtle, genuinely circular */}
               <div
                 className={`absolute rounded-full ${
                   isLatest ? "border border-[#C8FF3D]/25" : isEmpty ? "border border-white/[0.06]" : "border border-white/10"
-                }`}
-                style={{ width: "58px", height: "58px", left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
+                } w-[50px] h-[50px] md:w-[60px] md:h-[60px]`}
+                style={{ left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
                 aria-hidden
               />
-              {/* inner disc — equal width/height, circular */}
+              {/* inner disc — equal width/height, circular 42→48 mobile, 52→58 desktop */}
               <div
-                className={`flex items-center justify-center rounded-full text-[13px] font-bold tracking-[-0.02em] w-[44px] h-[44px] md:w-[52px] md:h-[52px] ${
+                className={`flex items-center justify-center rounded-full text-[13px] font-bold tracking-[-0.02em] w-[42px] h-[42px] md:w-[52px] md:h-[52px] ${
                   isLatest
                     ? "bg-[#C8FF3D] text-[#0B0B0C] shadow-[0_0_14px_rgba(200,255,61,0.28)]"
                     : isEmpty
