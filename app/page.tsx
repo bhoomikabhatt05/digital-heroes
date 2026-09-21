@@ -122,6 +122,39 @@ export default async function HomePage() {
         </div>
       </Reveal>
 
+      {/* HOW IT WORKS — 5 step premium */}
+      <section className="relative bg-[#0B0B0C] py-14 md:py-16 overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "48px 48px" }} aria-hidden />
+        <div className="absolute -top-32 right-0 h-64 w-64 rounded-full bg-[#C8FF3D]/10 blur-3xl" aria-hidden />
+        <div className="mx-auto max-w-[1160px] px-6 relative">
+          <Reveal>
+            <p className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[#C8FF3D]">HOW IT WORKS</p>
+            <h2 className="mt-2 text-[28px] md:text-[36px] font-bold tracking-[-0.03em] text-white">Your game. Your impact. Your chance to win.</h2>
+            <p className="mt-3 text-[14px] leading-6 text-[#A5A5A0] max-w-[560px]">A simple monthly journey that connects your scores, your charity and the draw.</p>
+          </Reveal>
+          <div className="mt-10 grid md:grid-cols-5 gap-5">
+            {[
+              { n: "01", title: "CHOOSE YOUR IMPACT", desc: "Choose a charity and decide what percentage of your subscription contributes to it.", icon: "♥" },
+              { n: "02", title: "TRACK YOUR GAME", desc: "Add your Stableford score after each round. Your latest 5 scores are kept in your Score Orbit.", icon: "◉" },
+              { n: "03", title: "ENTER THE DRAW", desc: "Your 5-number entry is automatically generated for each active draw.", icon: "✦" },
+              { n: "04", title: "MATCH & WIN", desc: "Match 3, 4 or 5 numbers to receive a share of the prize pool.", icon: "🏆" },
+              { n: "05", title: "VERIFY YOUR WIN", desc: "If you win, upload your qualifying score proof for admin verification before payment.", icon: "✓" },
+            ].map((s, idx) => (
+              <Reveal key={s.n} delay={idx * 60} className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-5 hover:bg-white/[0.06] transition-colors">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#C8FF3D] text-[#0B0B0C] text-xs font-bold">{s.icon}</div>
+                <p className="mt-4 text-[11px] font-semibold tracking-[0.08em] uppercase text-[#C8FF3D]">{s.n}</p>
+                <h3 className="mt-1 text-[13px] font-semibold tracking-[-0.01em] text-white">{s.title}</h3>
+                <p className="mt-2 text-[13px] leading-5 text-[#A5A5A0]">{s.desc}</p>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={120} className="mt-10 flex flex-wrap gap-3">
+            <Link href="/signup"><Button size="lg" className="h-12 px-7 btn-lift">START YOUR JOURNEY <span className="ml-2 btn-arrow">→</span></Button></Link>
+            <Link href="/how-it-works"><Button variant="secondary" size="lg" className="h-12 px-7">SEE HOW IT WORKS</Button></Link>
+          </Reveal>
+        </div>
+      </section>
+
       {/* IMPACT ATLAS — charity emotional center with count-up */}
       <section className="relative bg-[#0B0B0C] py-14 md:py-16 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)", backgroundSize: "48px 48px" }} aria-hidden />

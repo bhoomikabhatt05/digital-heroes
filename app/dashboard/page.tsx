@@ -7,6 +7,7 @@ import { getNextDrawDate } from "@/lib/draw/engine";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ScoreOrbit } from "@/components/art/impact-orbit";
+import { OnboardingTour } from "@/components/onboarding/OnboardingTour";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -41,6 +42,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      <OnboardingTour />
       {/* Command Center Header — user personal */}
       <div className="rounded-3xl border border-white/10 bg-[#0B0B0C] text-white p-6 md:p-7 overflow-hidden relative">
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)", backgroundSize: "48px 48px" }} aria-hidden />
@@ -87,6 +89,7 @@ export default async function DashboardPage() {
         {/* Score Orbit Signature */}
         <div className="space-y-5">
           <ScoreOrbit scores={scoreValues} />
+          <p className="text-xs leading-5 text-[#74746F] px-1">Your latest 5 Stableford scores live here.</p>
           <Card className="p-5 bg-[#0B0B0C] border-white/10 text-white">
             <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#A5A5A0]">Performance</p>
             <p className="mt-2 text-[28px] font-bold tracking-[-0.03em] text-white">{avg}</p>
@@ -111,6 +114,7 @@ export default async function DashboardPage() {
         <div className="space-y-5">
           <Card className="p-5">
             <p className="text-[11px] font-semibold tracking-[0.08em] uppercase text-[#74746F]">Impact</p>
+            <p className="text-[11px] leading-5 text-[#74746F] mt-1">Choose a charity and decide how much of your subscription you want to contribute.</p>
             <p className="mt-2 text-[16px] font-semibold tracking-[-0.01em] text-[#111113]">{selectedCharity?.name}</p>
             <p className="text-xs text-[#5F5F5A] mt-1">{profile?.charity_percentage ?? 10}% of subscription → £{((20 * (profile?.charity_percentage ?? 10)) / 100).toFixed(2)}/mo</p>
             <div className="mt-3 h-2 rounded-full bg-[rgba(17,17,19,0.08)] overflow-hidden">
